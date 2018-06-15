@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../resources/main.xhtml">
+
+    <ui:define name="tarefas">
+        <p:fieldset legend="Enregistrer Promotions">
+            <br/>
+            <p:tabView id="tbv1" dynamic="true" cache="true">
+                <p:tab title="Promotion">
+                    <h:form prependId="false" id="formPromotion">
+                        <p:growl id="msg0"/>
+                        <h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid" id="grid0">
+                            
+                            <h:outputLabel/>
+                            <h:inputHidden id="idcidade" value="#{promotionController.promotion.promoId}"/> 
+                            
+                            
+                                <h:outputLabel for="codePromotion" value="Code.:"/>
+                                <p:inputText id="codePromotion" size="40" value="#{promotionController.promotion.promotionCode}"
+                                             required="true" requiredMessage="Le champ [Code] est obligatoire"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+                                
+                                <h:outputLabel for="dateOuverture" value="Data ouverture.:"/>
+                                <p:calendar id="dateOuverture" value="#{promotionController.promotion.dateOuverture}"
+                                            required="true" requiredMessage="Le champ [Date ouverture] est obligatoire"
+                                            locale="pt_BR" navigator="true" effect="explode" pattern="dd/MM/yyyy"/>
+                                
+                                <h:outputLabel for="dateFermeture" value="Data fermeture estimée.:"/>
+                                <p:calendar id="dateFermeture" value="#{promotionController.promotion.dateFermeture}"
+                                            required="false" 
+                                            locale="pt_BR" navigator="true" effect="explode" pattern="dd/MM/yyyy"/>
+                                <!--requiredMessage="Le champ [Date fermeture] est obligatoire"-->
+                            
+                            <p:panel>
+                                <p:commandButton value="Ajouter" action="#{promotionController.addPromotion()}"
+                                    image="ui-icon ui-icon-disk" update="@form :formtable"/>
+                                <p:commandButton value="Annuler" actionListener="#{promotionController.clearPromotion()}" 
+                                    image="ui-icon ui-icon-close" update="@form"/>
+                            </p:panel>
+                        </h:panelGrid>
+                    </h:form>
+                </p:tab>
+            </p:tabView>
+            
+            <h:form id="formtable">
+                <p:growl id="msg1"/>
+                <p:dataTable id="idTabela" var="promotion" value="#{promotionController.promotionList}"
+                             paginator="true" rows="10" emptyMessage="Aucun enregistrement trouvé"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                
+                    <f:facet name="header">Liste des Promotions</f:facet>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Code"/>
+                        </f:facet>
+                        <h:outputText value="#{promotion.promotionCode}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Date ouverture"/>
+                        </f:facet>
+                        <h:outputText value="#{promotion.dateOuverture}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Date fermeture estimée"/>
+                        </f:facet>
+                        <h:outputText value="#{promotion.dateFermeture}"/>
+                    </p:column>
+                    
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Action"/>
+                        </f:facet>
+                        <p:commandButton value="Editer" image="ui-icon ui-icon-pencil"
+                                process="@this" update=":tbv1:formPromotion">
+                            <f:setPropertyActionListener target="#{promotionController.promotion}"
+                                                         value="#{promotion}"/>
+                        </p:commandButton>
+                        <p:commandButton value="Supprimer" action="#{promotionController.clearPromotion()}"
+                                image="ui-icon ui-icon-close" update="@form"
+                                onclick="return confirm('Are you sure to delete promotion?')">
+                            <f:setPropertyActionListener target="#{promotionController.promotion}"
+                                                         value="#{promotion}"/>
+                        </p:commandButton>
+                        
+                    </p:column>
+                    
+                </p:dataTable>
+                
+            </h:form>
+            
+        </p:fieldset>
+    </ui:define>
+</ui:composition>

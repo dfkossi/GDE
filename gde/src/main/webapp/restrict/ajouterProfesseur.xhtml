@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../resources/main.xhtml">
+
+    <ui:define name="tarefas">
+        <p:fieldset legend="Enregistrer Professeur">
+            <br/>
+            <p:tabView id="tbv1" dynamic="true" cache="true">
+                <p:tab title="Professeur">
+                    <h:form prependId="false" id="formProfesseur">
+                        <p:growl id="msg0"/>
+                        <h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid" id="grid0">
+                            
+                            <h:outputLabel/>
+                            <h:inputHidden id="idcidade" value="#{utilisateurController.professeur.id}"/> 
+                            
+                            
+                                <h:outputLabel for="nomProfesseur" value="Nom.:"/>
+                                <p:inputText id="nomProfesseur" size="40" value="#{utilisateurController.professeur.utilisateurNom}"
+                                             required="true" requiredMessage="Le champ [Nom] est obligatoire"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+                                
+                                <h:outputLabel for="prenomProfesseur" value="Prénom.:"/>
+                                <p:inputText id="prenomProfesseur" size="40" value="#{utilisateurController.professeur.utilisateurPrenom}"
+                                             required="true" requiredMessage="Le champ [Prenom] est obligatoire"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+                                
+                                <h:outputLabel for="codeProfesseur" value="Code.:"/>
+                                <p:inputText id="codeProfesseur" size="40" value="#{utilisateurController.professeur.professeurCode}"
+                                             required="true" requiredMessage="Le champ [Code] est obligatoire"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+                                
+                                <h:outputLabel for="specialiteProfesseur" value="Specialité.:"/>
+                                <p:inputText id="specialiteProfesseur" size="40" value="#{utilisateurController.professeur.professeurSpecialite}"
+                                             required="true" requiredMessage="Le champ [Specialité] est obligatoire"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+
+                                <h:outputLabel for="telephoneProfesseur" value="Telephone.:"/>
+                                <p:inputMask id="telephoneProfesseur" size="40" mask="(84) 99-99-99-999"
+                                             value="#{utilisateurController.professeur.utilisateurTelephone}"
+                                             required="true" requiredMessage="Le champ [Telephone] est obligatoire"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+
+                                <h:outputLabel for="emailProfesseur" value="E-mail.:"/>
+                                <p:inputText id="emailProfesseur" size="40" value="#{utilisateurController.professeur.utilisateurEmail}"
+                                             required="true" requiredMessage="Le champ [E-mail] est obligatoire">
+                                    <f:validator validatorId="emailValidator"/>
+                                </p:inputText>
+
+                                <h:outputLabel for="login" value="Login.:"/>
+                                <p:inputText id="login" value="#{utilisateurController.professeur.login}" size="30"/>
+
+                                <h:outputLabel for="password" value="Password.:" />
+                                <p:password id="password" size="30" maxlength="22" promptLabel="Entrez votre mot de passe" 
+                                            value="#{utilisateurController.pwdConverter}"
+                                            weakLabel="Password Faible" goodLabel="Password Moyen" strongLabel="Password Fort" 
+                                            feedback="true"/> 
+
+                                <h:outputLabel for="passwordconf2" value="Confirmer Password.:"/>
+                                <p:password id="passwordconf2" size="30" value="#{utilisateurController.professeur.password}" maxlength="22"   
+                                            promptLabel="Vérifier le mot de passe" weakLabel="Password Faible" validator="passwordValidator"
+                                            goodLabel="Password Moyen" strongLabel="Password Fort" feedback="true">
+                                </p:password> 
+                       
+                            
+                            <p:panel>
+                                <p:commandButton value="Ajouter" action="#{utilisateurController.addProfesseur()}"
+                                    image="ui-icon ui-icon-disk" update="@form :formtable"/>
+                                <p:commandButton value="Annuler" actionListener="#{utilisateurController.clearProfesseur()}" 
+                                    image="ui-icon ui-icon-close" update="@form"/>
+                            </p:panel>
+                        </h:panelGrid>
+                    </h:form>
+                </p:tab>
+            </p:tabView>
+            
+            <h:form id="formtable">
+                <p:growl id="msg1"/>
+                <p:dataTable id="idTabela" var="professeur" value="#{utilisateurController.professeurList}"
+                             paginator="true" rows="10" emptyMessage="Aucun enregistrement trouvé"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                
+                    <f:facet name="header">Liste des Professeurs</f:facet>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Login"/>
+                        </f:facet>
+                        <h:outputText value="#{professeur.login}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nom"/>
+                        </f:facet>
+                        <h:outputText value="#{professeur.utilisateurNom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Prénom(s)"/>
+                        </f:facet>
+                        <h:outputText value="#{professeur.utilisateurPrenom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Spécialité"/>
+                        </f:facet>
+                        <h:outputText value="#{professeur.professeurSpecialite}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Email"/>
+                        </f:facet>
+                        <h:outputText value="#{professeur.utilisateurEmail}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Date Save"/>
+                        </f:facet>
+                        <h:outputText value="#{professeur.utilisateurDateEnregistrement}"/>
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Action"/>
+                        </f:facet>
+                        <p:commandButton value="Editer" image="ui-icon ui-icon-pencil"
+                                process="@this" update=":tbv1:formProfesseur">
+                            <f:setPropertyActionListener target="#{utilisateurController.professeur}"
+                                                         value="#{professeur}"/>
+                        </p:commandButton>
+                        <p:commandButton value="Supprimer" action="#{utilisateurController.deleteProfesseur()}"
+                                image="ui-icon ui-icon-close" update="@form"
+                                onclick="return confirm('Are you sure to delete user?')">
+                            <f:setPropertyActionListener target="#{utilisateurController.professeur}"
+                                value="#{professeur}"/>
+                        </p:commandButton>
+                        
+                    </p:column>
+                    
+                </p:dataTable>
+                
+            </h:form>
+            
+        </p:fieldset>
+    </ui:define>
+</ui:composition>

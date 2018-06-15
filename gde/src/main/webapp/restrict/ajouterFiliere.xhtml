@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../resources/main.xhtml">
+
+    <ui:define name="tarefas">
+        <p:fieldset legend="Enregistrer Filière">
+            <br/>
+            <p:tabView id="tbv1" dynamic="true" cache="true">
+                <p:tab title="Filiere">
+                    <h:form prependId="false" id="formFiliere">
+                        <p:growl id="msg0"/>
+                        <h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid" id="grid0">
+                            
+                            <h:outputLabel/>
+                            <h:inputHidden id="idcidade" value="#{filiereController.filiere.filiereId}"/> 
+                            
+                            
+                                <h:outputLabel for="codeFiliere" value="Code.:"/>
+                                <p:inputText id="codeFiliere" size="40" value="#{filiereController.filiere.filiereCode}"
+                                             required="true" requiredMessage="Le champ [CODE] est obligatoire"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+                                
+                                <h:outputLabel for="libelleFiliere" value="Intitulé.:"/>
+                                <p:inputText id="libelleFiliere" size="40" value="#{filiereController.filiere.filiereLibelle}"
+                                             required="true" requiredMessage="Le champ [Libelle] est obligatoire"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+
+                            
+                            <p:panel>
+                                <p:commandButton value="Ajouter" action="#{filiereController.addFiliere()}"
+                                    image="ui-icon ui-icon-disk" update="@form :formtable"/>
+                                <p:commandButton value="Annuler" actionListener="#{filiereController.clearFiliere()}" 
+                                    image="ui-icon ui-icon-close" update="@form"/>
+                            </p:panel>
+                        </h:panelGrid>
+                    </h:form>
+                </p:tab>
+            </p:tabView>
+            
+            <h:form id="formtable">
+                <p:growl id="msg1"/>
+                <p:dataTable id="idTabela" var="filiere" value="#{filiereController.filiereList}"
+                             paginator="true" rows="10" emptyMessage="Aucun enregistrement trouvé"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                
+                    <f:facet name="header">Liste des Filières</f:facet>
+<!--                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Num"/>
+                        </f:facet>
+                        <h:outputText value="#{filiere.filiereId}"/>
+                    </p:column>-->
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Code"/>
+                        </f:facet>
+                        <h:outputText value="#{filiere.filiereCode}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Intitulé"/>
+                        </f:facet>
+                        <h:outputText value="#{filiere.filiereLibelle}"/>
+                    </p:column>
+                   
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Action"/>
+                        </f:facet>
+                        <p:commandButton value="Editer" image="ui-icon ui-icon-pencil"
+                                process="@this" update=":tbv1:formFiliere">
+                            <f:setPropertyActionListener target="#{filiereController.filiere}"
+                                                         value="#{filiere}"/>
+                        </p:commandButton>
+                        <p:commandButton value="Supprimer" action="#{filiereController.deleteFiliere()}"
+                                image="ui-icon ui-icon-close" update="@form"
+                                onclick="return confirm('Are you sure to delete this Filiere?')">
+                            <f:setPropertyActionListener target="#{filiereController.filiere}"
+                                value="#{filiere}"/>
+                        </p:commandButton>
+                        
+                    </p:column>
+                    
+                </p:dataTable>
+                
+            </h:form>
+            
+        </p:fieldset>
+    </ui:define>
+</ui:composition>
