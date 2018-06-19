@@ -85,6 +85,12 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
+                            <h:outputText value="Rôle"/>
+                        </f:facet>
+                        <h:outputText value="#{utilisateur.permission}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
                             <h:outputText value="Nom"/>
                         </f:facet>
                         <h:outputText value="#{utilisateur.utilisateurNom}"/>

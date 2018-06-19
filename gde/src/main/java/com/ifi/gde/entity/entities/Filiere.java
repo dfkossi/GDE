@@ -36,7 +36,7 @@ public class Filiere implements Serializable{
     @Column(name = "filiere_code", length = 20)
     private String filiereCode;
     
-    @Column(name = "filiere_libele", length = 20)
+    @Column(name = "filiere_libele", length = 60)
     private String filiereLibelle;
 
     @OneToMany(mappedBy = "etudiantFiliere", fetch = FetchType.LAZY)

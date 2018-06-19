@@ -10,6 +10,7 @@ import com.ifi.gde.base.dao.InterfaceDAO;
 import com.ifi.gde.entity.entities.Filiere;
 import com.ifi.gde.entity.util.FacesContextUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -20,54 +21,56 @@ import javax.faces.context.FacesContext;
  *
  * @author dfkossi
  */
-@ManagedBean(name="filiereController")
+@ManagedBean(name = "filiereController")
 @RequestScoped
 public class FiliereController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Filiere filiere;
-    private List<Filiere> filiereList;
+    private Filiere filiere = new Filiere();;
+    private List<Filiere> filiereList = new ArrayList<>();
+
 
     public FiliereController() {
     }
 
-    private InterfaceDAO<Filiere> filiereDAO(){
+    private InterfaceDAO<Filiere> filiereDAO() {
         InterfaceDAO<Filiere> filiereDAO = new HibernateDAO<>(Filiere.class, FacesContextUtil.getRequestSession());
         return filiereDAO;
     }
-    
-    public String clearFiliere(){
+
+    public String clearFiliere() {
         filiere = new Filiere();
         return editFiliere();
     }
-    
+
     public String editFiliere() {
         return "/restrict/ajouterFiliere.faces";
     }
-    
-    public String addFiliere(){
-        if(filiere.getFiliereId() == null || filiere.getFiliereId() == 0){
+
+    public String addFiliere() {
+        if (filiere.getFiliereId() == null || filiere.getFiliereId() == 0) {
             insertFiliere();
-        }else{
+        } else {
             updateFiliere();
         }
         clearFiliere();
         return null;
     }
-    
-    private void insertFiliere(){
-            filiereDAO().save(filiere);
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Enregistré avec succès", ""));
+
+    private void insertFiliere() {
+        filiereDAO().save(filiere);
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Enregistré avec succès", ""));
     }
-    
-    private void updateFiliere(){
+
+    private void updateFiliere() {
         filiereDAO().update(filiere);
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Mise à jour effectuée avec succès", ""));
     }
-    public String deleteFiliere(){
+
+    public String deleteFiliere() {
         filiereDAO().remove(filiere);
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Enregistrement supprimé avec succès", ""));
@@ -90,6 +93,5 @@ public class FiliereController implements Serializable {
     public void setFiliereList(List<Filiere> filiereList) {
         this.filiereList = filiereList;
     }
-    
-    
+
 }

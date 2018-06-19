@@ -38,12 +38,24 @@
                 <p:menubar styleClass="labelmenu">
 
                     <p:submenu label="Enregistrer">  
-                        <!--<p:menuitem value="Administrateur" url="/restrict/ajouterUtilisateur.faces"/>-->                        
+<!--                        <p:menuitem value="Administrateur" url="/restrict/ajouterUtilisateur.faces"/>                        
+                        <p:menuitem value="Professeur" url="/restrict/ajouterProfesseur.faces"/>                        
+                        <p:menuitem value="Matiere" url="/restrict/ajouterMatiere.faces"/>                        
+                        <p:menuitem value="Promotion" url="/restrict/ajouterPromotion.faces"/>                        
+                        <p:menuitem value="Filière" url="/restrict/ajouterFiliere.faces"/>                        
+                        <p:menuitem value="Etudiant" url="/restrict/ajouterEtudiant.faces"/>                        -->
+
                         <p:menuitem value="Administrateur" action="#{utilisateurController.clearUtilisateur()}" ajax="false"/>                        
                         <p:menuitem value="Professeur" action="#{utilisateurController.clearProfesseur()}" ajax="false"/>                        
+                        <!--<p:menuitem value="Matiere" action="{matiereController.clearMatiere()}" ajax="false"/>--> 
+                        <p:menuitem value="Matiere" url="/restrict/ajouterMatiere.faces"/> 
+                        <p:menuitem value="Promotion" action="#{promotionController.clearPromotion()}" ajax="false"/>                        
+                        <p:menuitem value="Filière" action="#{filiereController.clearFiliere()}" ajax="false"/> 
+                        <p:menuitem value="Etudiant" url="/restrict/ajouterEtudiant.faces"/> 
+                        <!--<p:menuitem value="Etudiant" action="{utilisateurController.clearEtudiant()}" ajax="false"/>-->                        
                     </p:submenu> 
                     <p:submenu label="Consulter Utilisateur">  
-                        <p:menuitem value="Utilisateur" url="/restrict/consultarpessoas.faces"/>  
+                        <p:menuitem value="Utilisateur" url="#"/>  
                     </p:submenu>                                      
                 </p:menubar> 
             </h:form>           

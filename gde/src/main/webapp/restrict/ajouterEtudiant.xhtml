@@ -38,25 +38,33 @@
                                 
                                 <h:outputLabel for="sexeEtudiant" value="Sexe.:"/>
                                 <p:selectOneMenu id="sexeEtudiant" value="#{utilisateurController.etudiant.etudiantSexe.sexeId}">
-                                    <f:selectItems value="#{utilisateurController.sexeList}" 
-                                                   var="sexeEtudiant" itemValue="#{sexeEtudiant.sexeId}" itemLabel="#{sexeEtudiant.sexeLibelle}"/>
+                                    <f:selectItems value="#{sexeController.sexeList}" 
+                                                   var="sexeEtudiant" itemValue="#{sexeEtudiant.sexeId}" 
+                                                   itemLabel="#{sexeEtudiant.sexeLibelle}"/>
                                 </p:selectOneMenu>
+                                
                                 
                                 <h:outputLabel for="nationaliteEtudiant" value="Nationalité.:"/>
                                 <p:inputText id="nationaliteEtudiant" size="40" value="#{utilisateurController.etudiant.etudiantNationalite}"
                                              required="true" requiredMessage="Le champ [Nationalite] est obligatoire"
                                              onkeyup="this.value = this.value.toUpperCase()"/>
-
+                                
+                                
+                                <h:outputLabel for="dateNaisEtudiant" value="Data naissance.:"/>
+                                <p:calendar id="dateNaisEtudiant" value="#{utilisateurController.etudiant.etudiantDateNais}"
+                                            required="true" requiredMessage="Le champ [Date naissance] est obligatoire"
+                                            locale="pt_BR" navigator="true" effect="explode" pattern="dd/MM/yyyy"/>
+                                
                                 <h:outputLabel for="filiereEtudiant" value="Filière.:"/>
                                 <p:selectOneMenu id="filiereEtudiant" value="#{utilisateurController.etudiant.etudiantFiliere.filiereId}">
-                                    <f:selectItems value="#{utilisateurController.filiereList}" 
+                                    <f:selectItems value="#{filiereController.filiereList}" 
                                                    var="filiereEtudiant" itemValue="#{filiereEtudiant.filiereId}" 
                                                    itemLabel="#{filiereEtudiant.filiereLibelle}"/>
                                 </p:selectOneMenu>
                                 
                                 <h:outputLabel for="promotionEtudiant" value="Promotion.:"/>
                                 <p:selectOneMenu id="promotionEtudiant" value="#{utilisateurController.etudiant.etudiantPromotion.promoId}">
-                                    <f:selectItems value="#{utilisateurController.promotionList}" 
+                                    <f:selectItems value="#{promotionController.promotionList}" 
                                                    var="promotionEtudiant" itemValue="#{promotionEtudiant.promoId}" 
                                                    itemLabel="#{promotionEtudiant.promotionCode}"/>
                                 </p:selectOneMenu>

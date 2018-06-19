@@ -15,7 +15,7 @@
                 <p:tab title="Module">
                     <h:form prependId="false" id="formMatiere">
                         <p:growl id="msg0"/>
-                        <h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid" id="grid0">
+                        <h:panelGrid columns="2" cellpadding="12" styleClass="panelGrid" id="grid0">
                             
                             <h:outputLabel/>
                             <h:inputHidden id="idcidade" value="#{matiereController.matiere.matiereId}"/> 
@@ -41,13 +41,14 @@
                                              required="true" requiredMessage="Le champ [ECTS] est obligatoire"
                                              onkeyup="this.value = this.value.toUpperCase()"/>
 
-
                                 <h:outputLabel for="profMatiere" value="Professeur chargé.:"/>
-                                <p:selectOneMenu id="profMatiere" value="#{matiereController.matiere.professeur.id}">
+                                <p:selectOneMenu id="profMatiere" value="#{matiereController.matiere.matiereProfesseur.id}">
                                     <f:selectItems value="#{utilisateurController.professeurList}" 
-                                                   var="profMatiere" itemValue="#{profMatiere.id}" itemLabel="#{profMatiere.utilisateurNom}"/>
+                                                   var="profMatiere" itemValue="#{profMatiere.id}"
+                                                   itemLabel="#{profMatiere.utilisateurNom}"/>
                                 </p:selectOneMenu>
-                                
+                            
+                            <p:panel>
                                 <p:commandButton value="Ajouter" action="#{matiereController.addMatiere()}"
                                     image="ui-icon ui-icon-disk" update="@form :formtable"/>
                                 <p:commandButton value="Annuler" actionListener="#{matiereController.clearMatiere()}" 
@@ -69,33 +70,33 @@
                     <f:facet name="header">Liste des Modules</f:facet>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Login"/>
+                            <h:outputText value="Code"/>
                         </f:facet>
                         <h:outputText value="#{matiere.matiereCode}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Nom"/>
+                            <h:outputText value="Intitulé"/>
                         </f:facet>
                         <h:outputText value="#{matiere.matiereTitre}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Prénom(s)"/>
+                            <h:outputText value="Nombre d'heure"/>
                         </f:facet>
                         <h:outputText value="#{matiere.matiereNbreHeure}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Email"/>
+                            <h:outputText value="Nombre ECTS"/>
                         </f:facet>
                         <h:outputText value="#{matiere.matiereNombreECTS}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Date Save"/>
+                            <h:outputText value="Professeur"/>
                         </f:facet>
-                        <h:outputText value="#{matiere.professeur.utilisateurNom}"/>
+                        <h:outputText value="#{matiere.matiereProfesseur.utilisateurNom}"/>
                     </p:column>
                     
                     <p:column>

@@ -5,21 +5,19 @@
  */
 package com.ifi.gde.base.dao;
 
+import static com.ifi.gde.entity.util.HibernateIfiGdeUtils.getSessionFactory;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
-import org.springframework.transaction.annotation.Transactional;
 //import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author peniel
  * @param <T>
- * @param <PK>
  */
 //@Repository
 public class HibernateDAO<T> implements InterfaceDAO<T>, Serializable {
@@ -28,7 +26,7 @@ public class HibernateDAO<T> implements InterfaceDAO<T>, Serializable {
     private static final long serialVersionUID = 1L;
     
     private Class<T> classe;
-    private Session session;
+    private Session session ;
 
     public HibernateDAO(Class<T> classe, Session session) {
         super();
@@ -39,13 +37,31 @@ public class HibernateDAO<T> implements InterfaceDAO<T>, Serializable {
     
     @Override
     public void save(T entity) {
+//        session.flush();
         session.save(entity);
+        session.evict(entity);
+        session.clear();
     }
 
     @Override
     public void update(T entity) {
-        session.update(entity);
+//        Session sessions;
+//        sessions = getSessionFactory().getCurrentSession();
+//        sessions.clear();
+//        session.update(entity);
+        session.merge(entity);
+//        session.evict(entity);
+//        session.clear();
+//        sessions.flush();
     }
+//    public T update(T type) {
+//        Session session = getSession();
+//        session.clear();
+//        session.update( type );
+//        session.flush();
+//        return type;
+//    }
+    
 
     @Override
     public void remove(T entity) {

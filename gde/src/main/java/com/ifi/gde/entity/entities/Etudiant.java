@@ -58,19 +58,22 @@ public class Etudiant extends Utilisateur implements Serializable{
     
     
     public Etudiant() {
+        this.etudiantSexe = new Sexe();
+        this.etudiantFiliere = new Filiere();
+        this.etudiantPromotion = new Promotion();
     }
 
-    public Etudiant(Integer etudiantNumMatricule, Date etudiantDateNais,
-            String etudiantNationalite, Sexe etudiantSexe, 
-            Filiere etudiantFiliere, Promotion etudiantPromotion) {
-        
-        this.etudiantNumMatricule = etudiantNumMatricule;
-        this.etudiantDateNais = etudiantDateNais;
-        this.etudiantNationalite = etudiantNationalite;
-        this.etudiantSexe = etudiantSexe;
-        this.etudiantFiliere = etudiantFiliere;
-        this.etudiantPromotion = etudiantPromotion;
-    }
+//    public Etudiant(Integer etudiantNumMatricule, Date etudiantDateNais,
+//            String etudiantNationalite, Sexe etudiantSexe, 
+//            Filiere etudiantFiliere, Promotion etudiantPromotion) {
+//        
+//        this.etudiantNumMatricule = etudiantNumMatricule;
+//        this.etudiantDateNais = etudiantDateNais;
+//        this.etudiantNationalite = etudiantNationalite;
+//        this.etudiantSexe = etudiantSexe;
+//        this.etudiantFiliere = etudiantFiliere;
+//        this.etudiantPromotion = etudiantPromotion;
+//    }
 
     public Integer getEtudiantNumMatricule() {
         return etudiantNumMatricule;

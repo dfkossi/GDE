@@ -7,7 +7,7 @@ package com.ifi.gde.entity.controller;
 
 import com.ifi.gde.base.dao.HibernateDAO;
 import com.ifi.gde.base.dao.InterfaceDAO;
-import com.ifi.gde.entity.entities.Matiere;
+import com.ifi.gde.entity.entities.Sexe;
 import com.ifi.gde.entity.util.FacesContextUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -21,35 +21,30 @@ import javax.faces.context.FacesContext;
  *
  * @author dfkossi
  */
-@ManagedBean(name = "matiereController")
+@ManagedBean(name = "sexeController")
 @RequestScoped
-public class MatiereController implements Serializable {
+public class SexeController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Matiere matiere;
-//    private Professeur professeur;
-    private List<Matiere> matiereList;
-//    private List<Professeur> professeurList;
-
-//    public MatiereController() {
-//    }
+    private Sexe sexe;
+    private List<Sexe> sexeList;
     
-    @PostConstruct
+     @PostConstruct
     public void init() {
 //        professeur = new Professeur();
-        matiere = new Matiere();
+        sexe = new Sexe();
 //        matiere.setMatiereProfesseur(new Professeur());  
-        matiereList = getMatiereList();
+        sexeList = getSexeList();
 //        professeurList = getProfesseurList();
 //        System.out.println("zzz " + professeurList.size());
 //        System.out.println("zzz " + matiereList.size());
     }
 
-    private InterfaceDAO<Matiere> matiereDAO() {
-        InterfaceDAO<Matiere> matiereDAO = new HibernateDAO<>(Matiere.class,
+    private InterfaceDAO<Sexe> sexeDAO() {
+        InterfaceDAO<Sexe> sexeDAO = new HibernateDAO<>(Sexe.class,
                 FacesContextUtil.getRequestSession());
-        return matiereDAO;
+        return sexeDAO;
     }
 
 //    private InterfaceDAO<Professeur> professeurDAO() {
@@ -58,83 +53,62 @@ public class MatiereController implements Serializable {
 //        return professeurDAO;
 //    }
 
-    public String clearMatiere() {
-        matiere = new Matiere();
+    public String clearSexe() {
+        sexe = new Sexe();
 //        professeur = new Professeur();
-        return editMatiere();
+        return editSexe();
     }
 
-    public String editMatiere() {
-        return "/restrict/ajouterMatiere.faces";
+    public String editSexe() {
+        return "/restrict/ajouterSexe.faces";
     }
 
     public String addMatiere() {
-        if (matiere.getMatiereId() == null || matiere.getMatiereId() == 0) {
-            insertMatiere();
+        if (sexe.getSexeId() == null || sexe.getSexeId() == 0) {
+            insertSexe();
         } else {
-            updateMatiere();
+            updateSexe();
         }
-        clearMatiere();
+        clearSexe();
         return null;
     }
 
-    private void insertMatiere() {
+    private void insertSexe() {
 //        System.out.println("affiche " + professeur);
 //        matiere.setMatiereProfesseur(professeur);
-        matiereDAO().save(matiere);
+        sexeDAO().save(sexe);
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Enregistré avec succès", ""));
     }
 
-    private void updateMatiere() {
-        matiereDAO().update(matiere);
+    private void updateSexe() {
+        sexeDAO().update(sexe);
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Mise à jour effectuée avec succès", ""));
     }
 
     public String deleteMatiere() {
-        matiereDAO().remove(matiere);
+        sexeDAO().remove(sexe);
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Enregistrement supprimé avec succès", ""));
         return null;
     }
 
-    public Matiere getMatiere() {
-        return matiere;
+    public Sexe getMatiere() {
+        return sexe;
     }
 
-    public void setMatiere(Matiere matiere) {
-        this.matiere = matiere;
+    public void setMatiere(Sexe sexe) {
+        this.sexe = sexe;
     }
 
-    public List<Matiere> getMatiereList() {
-        matiereList = matiereDAO().getEntities();
-        return matiereList;
+    public List<Sexe> getSexeList() {
+        sexeList = sexeDAO().getEntities();
+        return sexeList;
     }
 
-    public void setMatiereList(List<Matiere> matiereList) {
-        this.matiereList = matiereList;
+    public void setMatiereList(List<Sexe> sexeList) {
+        this.sexeList = sexeList;
     }
-
-//    public Professeur getProfesseur() {
-//        return professeur;
-//    }
-//
-//    public void setProfesseur(Professeur professeur) {
-//        this.professeur = professeur;
-//    }
-//
-//    public List<Professeur> getProfesseurList() {
-//        professeurList = professeurDAO().getEntities();
-//        return professeurList;
-//    }
-
-//    public void setProfesseurList(List<Professeur> professeurList) {
-//        this.professeurList = professeurList;
-//    }
-
+    
 }
-
-
-//Erreur de conversion lors de la définition de la valeur «Professeur{professeurCode=123, 
-//professeurSpecialite=GENIE LOGICIEL, professeurListMat=[]}» pour «null Converter».

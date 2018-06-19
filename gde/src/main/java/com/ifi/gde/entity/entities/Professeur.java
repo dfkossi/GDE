@@ -5,11 +5,15 @@
  */
 package com.ifi.gde.entity.entities;
 
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import org.hibernate.annotations.ForeignKey;
 
 /**
  *
@@ -27,8 +31,12 @@ public class Professeur extends Utilisateur {
     @Column(name = "professeur_code", length = 30)
     private Integer professeurCode;
     
-    @Column(name = "professeur_specialite", length = 30)
+    @Column(name = "professeur_specialite", length = 60)
     private String professeurSpecialite;
+    
+    @OneToMany(mappedBy = "matiereProfesseur", fetch = FetchType.LAZY)
+    @ForeignKey(name = "matiere_professeur")        
+    private List<Matiere> professeurListMat;
     
     public Professeur() {
     }
@@ -49,12 +57,22 @@ public class Professeur extends Utilisateur {
         this.professeurSpecialite = professeurSpecialite;
     }
 
-    @Override
-    public String toString() {
-        return "Professeur{" + "professeurCode=" + professeurCode 
-                + ", professeurSpecialite=" + professeurSpecialite + '}';
+    public List<Matiere> getProfesseurListMat() {
+        return professeurListMat;
     }
 
+    public void setProfesseurListMat(List<Matiere> professeurListMat) {
+        this.professeurListMat = professeurListMat;
+    }
+
+    @Override
+    public String toString() {
+        return "Professeur{" + "professeurCode=" + professeurCode + 
+                ", professeurSpecialite=" + professeurSpecialite + 
+                ", professeurListMat=" + professeurListMat + '}';
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -72,10 +90,7 @@ public class Professeur extends Utilisateur {
             return false;
         }
         final Professeur other = (Professeur) obj;
-        if (!Objects.equals(this.professeurCode, other.professeurCode)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.professeurCode, other.professeurCode);
     }
 
     

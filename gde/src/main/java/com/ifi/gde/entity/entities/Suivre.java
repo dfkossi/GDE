@@ -25,7 +25,7 @@ public class Suivre implements Serializable{
     @EmbeddedId
     protected SuivrePK suivrePK;
     
-    @Column(name = "NoteObtenue", length = 20)
+    @Column(name = "note_obtenue", length = 20)
     private Double noteObtenue;
 
     public Suivre() {

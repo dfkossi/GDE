@@ -5,6 +5,7 @@
  */
 package com.ifi.gde.entity.entities;
 
+import com.ifi.gde.entity.converter.ConverterSHA1;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;

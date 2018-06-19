@@ -20,18 +20,17 @@ import javax.faces.context.FacesContext;
  *
  * @author dfkossi
  */
-@ManagedBean
+@ManagedBean(name="promotionController")
 @RequestScoped
 public class PromotionController implements Serializable{
     
     private static final long serialVersionUID = 1L;
 
-    private Promotion promotion;
+    private Promotion promotion = new Promotion();
     private List<Promotion> promotionList;
 
     public PromotionController() {
-    }
-    
+    }    
     
     private InterfaceDAO<Promotion> promotionDAO(){
         InterfaceDAO<Promotion> promotionDAO = new HibernateDAO<>(Promotion.class, FacesContextUtil.getRequestSession());
@@ -40,11 +39,11 @@ public class PromotionController implements Serializable{
     
     public String clearPromotion(){
         promotion = new Promotion();
-        return editFiliere();
+        return editPromotion();
     }
     
-    public String editFiliere() {
-        return "/restrict/ajouterFiliere.faces";
+    public String editPromotion() {
+        return "/restrict/ajouterPromotion.faces";
     }
     
     public String addPromotion(){

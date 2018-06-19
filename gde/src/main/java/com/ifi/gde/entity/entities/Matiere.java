@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,23 +35,26 @@ public class Matiere implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "matiere_id")
     private Integer matiereId;
-    @Column(name = "matiereCode", length = 30)
+    @Column(name = "matiere_code", length = 30)
     private String matiereCode;
-    @Column(name = "matiere_titre", length = 20)
+    @Column(name = "matiere_titre", length = 40)
     private String matiereTitre;
     @Column(name = "matiere_nbre_heure", length = 20)
     private Integer matiereNbreHeure;
     @Column(name = "matiere_nbre_ects", length = 20)
     private Integer matiereNombreECTS;
    
-    @ManyToOne(optional=false)
+    @ManyToOne(optional=false, fetch = FetchType.LAZY)
     @ForeignKey(name = "matiere_professeur") 
     @JoinColumn(name="professeur_id", referencedColumnName = "professeur_id")
-    private Professeur professeur;
+    private Professeur matiereProfesseur;
     
     public Matiere() {
-    }   
+        this.matiereProfesseur = new Professeur();
+    }  
+    
 
+    
     public Integer getMatiereId() {
         return matiereId;
     }
@@ -92,12 +96,12 @@ public class Matiere implements Serializable{
         this.matiereNombreECTS = matiereNombreECTS;
     }
 
-    public Professeur getProfesseur() {
-        return professeur;
+    public Professeur getMatiereProfesseur() {
+        return matiereProfesseur;
     }
 
-    public void setProfesseur(Professeur professeur) {
-        this.professeur = professeur;
+    public void setMatiereProfesseur(Professeur matiereProfesseur) {
+        this.matiereProfesseur = matiereProfesseur;
     }
 
     @Override
@@ -106,7 +110,7 @@ public class Matiere implements Serializable{
                 + matiereCode + ", matiereTitre=" + matiereTitre + 
                 ", matiereNbreHeure=" + matiereNbreHeure + 
                 ", matiereNombreECTS=" + matiereNombreECTS + 
-                ", professeur=" + professeur + '}';
+                ", matiereProfesseur=" + matiereProfesseur + '}';
     }
 
     @Override
@@ -117,7 +121,7 @@ public class Matiere implements Serializable{
         hash = 23 * hash + Objects.hashCode(this.matiereTitre);
         hash = 23 * hash + Objects.hashCode(this.matiereNbreHeure);
         hash = 23 * hash + Objects.hashCode(this.matiereNombreECTS);
-        hash = 23 * hash + Objects.hashCode(this.professeur);
+        hash = 23 * hash + Objects.hashCode(this.matiereProfesseur);
         return hash;
     }
 
@@ -133,10 +137,7 @@ public class Matiere implements Serializable{
         if (!Objects.equals(this.matiereId, other.matiereId)) {
             return false;
         }
-        if (!Objects.equals(this.matiereCode, other.matiereCode)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.matiereCode, other.matiereCode);
     }
 
     
