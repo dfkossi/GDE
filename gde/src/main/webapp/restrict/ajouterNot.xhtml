@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../resources/main.xhtml">
+
+    <ui:define name="tarefas">
+        <p:fieldset legend="Enregistrer Note">
+            <h:form prependId="false" id="formMatiere">
+
+                <br/>
+                <p:tabView id="tbv1" dynamic="true" cache="true">
+                    <p:tab title="Module">
+
+                        <p:growl id="msg0"/>
+                        <h:panelGrid columns="2" cellpadding="12" styleClass="panelGrid" id="grid0">
+
+
+                            <!--h:outputLabel for="profMatiere" value="Matièreh.:"/>
+                            <p:selectOneMenu id="profMatiere" value="{notController.idM}">
+                                <f:selectItems value="{matiereController.matiereList}" 
+                                               var="profMatiere" itemValue="{profMatiere.matiereId}"
+                                               itemLabel="{profMatiere.matiereTitre}"/>
+                            </p:selectOneMenu-->
+
+                            <h:outputLabel for="profMatiere" value="Mattt"/>
+                            <p:selectOneMenu id="profMatiere" value="#{notController.matiere.matiereId}">
+                                <f:selectItems value="#{notController.matiereList}" 
+                                               var="profMatiere" itemValue="#{profMatiere.matiereId}"
+                                               itemLabel="#{profMatiere.matiereTitre}"/>
+                            </p:selectOneMenu>
+                            <!--                            <p:panel>
+                                                            <p:commandButton value="Ajouter" action="{notController.addMatiere()}"
+                                                                image="ui-icon ui-icon-disk" update="@form :formtable"/>
+                                                            <p:commandButton value="Annuler" actionListener="{notController.clearMatiere()}" 
+                                                                image="ui-icon ui-icon-close" update="@form"/>
+                                                        </p:panel>-->
+                        </h:panelGrid>
+
+                    </p:tab>
+                </p:tabView>
+
+
+                 <p:dataTable id="idTabela" editable="true" editMode="cell" var="suivre" value="#{notController.notList}"
+                             paginator="true" rows="10" emptyMessage="Aucun enregistrement trouvé"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15" widgetVar="cellCars">
+
+
+                    <f:facet name="header">Liste des Etudiants</f:facet>
+                    <p:ajax event="cellEdit"  update="idTabela" />
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nom "/>
+                        </f:facet>
+                        <h:outputText value="#{suivre.etudiantNote.utilisateurNom}"/>
+                    </p:column>
+
+                    <p:column headerText="Note">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{suivre.noteObtenue}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:inputText id="modelInput" value="#{suivre.noteObtenue}" style="width:96%"/>
+                        </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                   
+
+                 </p:dataTable>
+<!--                <p:dataTable id="idTabela" editable="true" var="suivre" value="{notController.notList}"
+                             paginator="true" rows="10" emptyMessage="Aucun enregistrement trouvé"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15" >
+
+
+                    <f:facet name="header">Liste des Etudiants</f:facet>
+                    <p:ajax event="rowEdit" listener="{notController.onRowEdit1}"  />
+                    <p:ajax event="rowEditCancel" update=":formMatiere:idTabela" />
+                   
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nom "/>
+                        </f:facet>
+                        <h:outputText value="{suivre.etudiantNote.utilisateurNom}"/>
+                    </p:column>
+
+                    <p:column headerText="Note">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="{suivre.noteObtenue}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="{suivre.noteObtenue}" style="width:100%" label="Note"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+    
+                    <p:column style="width:32px">
+                        <p:rowEditor />
+                    </p:column>
+                   
+
+                </p:dataTable>
+                -->
+
+                <p:panel>
+                    <p:commandButton value="Ajouter" action="#{notController.addSuivre()}"
+                                     image="ui-icon ui-icon-disk" update="@form,:formtable:idTabela"/>
+                    <p:commandButton value="Annuler" actionListener="#{notController.clearSuivre()}" 
+                                     image="ui-icon ui-icon-close" update="@form"/>
+                </p:panel>
+
+            </h:form>
+        </p:fieldset>
+
+        <p:fieldset legend="Liste des Notes">
+            <h:form id="formtable">
+                <p:growl id="msg1"/>
+                <p:dataTable id="idTabela" var="matiere" value="#{notController.suivreList}"
+                             paginator="true" rows="10" emptyMessage="Aucun enregistrement trouvé"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15" editable="true" >
+
+                    <f:facet name="header">Liste des Notes</f:facet>
+                    <p:ajax event="rowEdit" listener="#{notController.onRowEdit}" update=":formtable:idTabela" />
+                    <p:ajax event="rowEditCancel" listener="#{notController.onRowCancel}" update=":formtable:idTabela" />
+                   
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Etudiant"/>
+                        </f:facet>
+                        <h:outputText value="#{matiere.etudiantNote.utilisateurNom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Matiere"/>
+                        </f:facet>
+                        <h:outputText value="#{matiere.matiereNote.matiereTitre}"/>
+                    </p:column>
+
+                    <p:column headerText="Note">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{matiere.noteObtenue}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{matiere.noteObtenue}" style="width:100%" label="Year"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+    
+                    <p:column style="width:32px">
+                        <p:rowEditor />
+                    </p:column>
+                     <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Action"/>
+                        </f:facet>
+                        
+                         <p:commandButton value="Supprimer" action="#{notController.deleteSuivre(matiere)}"
+                                image="ui-icon ui-icon-close" update=":formtable:idTabela"
+                                onclick="return confirm('Are you sure to delete this module?')">
+                            <f:setPropertyActionListener target="#{matiere}"
+                                                         value="#{matiere}"/>
+                        </p:commandButton>
+                        
+                    </p:column>
+
+
+                </p:dataTable>
+
+            </h:form>
+
+        </p:fieldset>
+
+
+    </ui:define>
+</ui:composition>

@@ -47,11 +47,15 @@
 
                         <p:menuitem value="Administrateur" action="#{utilisateurController.clearUtilisateur()}" ajax="false"/>                        
                         <p:menuitem value="Professeur" action="#{utilisateurController.clearProfesseur()}" ajax="false"/>                        
-                        <!--<p:menuitem value="Matiere" action="{matiereController.clearMatiere()}" ajax="false"/>--> 
-                        <p:menuitem value="Matiere" url="/restrict/ajouterMatiere.faces"/> 
+                        <p:menuitem value="Matiere" action="#{matiereController.clearMatiere()}" ajax="false"/> 
+                        <!--<p:menuitem value="Matiere" url="/restrict/ajouterMatiere.faces"/>--> 
                         <p:menuitem value="Promotion" action="#{promotionController.clearPromotion()}" ajax="false"/>                        
                         <p:menuitem value="Filière" action="#{filiereController.clearFiliere()}" ajax="false"/> 
-                        <p:menuitem value="Etudiant" url="/restrict/ajouterEtudiant.faces"/> 
+                        <p:menuitem value="Etudiant" action="#{utilisateurController.clearEtudiant()}" ajax="false"/> 
+                        <p:menuitem value="Ajouter notes" action="#{notController.clearSuivre()}" ajax="false"/> 
+                        <!--<p:menuitem value="Etudiant" url="/restrict/ajouterEtudiant.faces"/>--> 
+<!--                        <p:menuitem value="Ajouter notes" url="/restrict/ajouterNote.faces"/> -->
+                        
                         <!--<p:menuitem value="Etudiant" action="{utilisateurController.clearEtudiant()}" ajax="false"/>-->                        
                     </p:submenu> 
                     <p:submenu label="Consulter Utilisateur">  

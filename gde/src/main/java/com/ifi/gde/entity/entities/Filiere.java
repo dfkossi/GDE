@@ -80,10 +80,18 @@ public class Filiere implements Serializable{
 
     @Override
     public String toString() {
-        return "Filiere{" + "filiereId=" + filiereId + ", filiereCode=" +
-                filiereCode + ", filiereLibelle=" + filiereLibelle +
-                ", etudiantListFil=" + etudiantListFil + '}';
+        return "Filiere{" + "filiereId=" + filiereId + 
+                ", filiereCode=" + filiereCode + ", filiereLibelle=" 
+                + filiereLibelle + '}';
     }
+
+    
+//    @Override
+//    public String toString() {
+//        return "Filiere{" + "filiereId=" + filiereId + ", filiereCode=" +
+//                filiereCode + ", filiereLibelle=" + filiereLibelle +
+//                ", etudiantListFil=" + etudiantListFil + '}';
+//    }
 
     @Override
     public int hashCode() {

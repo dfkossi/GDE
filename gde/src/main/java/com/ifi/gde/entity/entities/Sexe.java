@@ -68,9 +68,15 @@ public class Sexe implements Serializable{
 
     @Override
     public String toString() {
-        return "Sexe{" + "sexeId=" + sexeId + ", sexeLibelle=" 
-                + sexeLibelle + ", etudiantList=" + etudiantList + '}';
+        return "Sexe{" + "sexeId=" + sexeId + ", sexeLibelle=" + sexeLibelle + '}';
     }
+
+    
+//    @Override
+//    public String toString() {
+//        return "Sexe{" + "sexeId=" + sexeId + ", sexeLibelle=" 
+//                + sexeLibelle + ", etudiantList=" + etudiantList + '}';
+//    }
 
     @Override
     public int hashCode() {

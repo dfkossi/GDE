@@ -8,6 +8,7 @@ package com.ifi.gde.entity.entities;
 //package com.ifi.gde.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.ForeignKey;
 
@@ -49,11 +51,13 @@ public class Matiere implements Serializable{
     @JoinColumn(name="professeur_id", referencedColumnName = "professeur_id")
     private Professeur matiereProfesseur;
     
+    @OneToMany(mappedBy = "matiereNote", fetch = FetchType.LAZY)
+    @ForeignKey(name = "matiere_note")        
+    private List<Suivre> matiereList;
+    
     public Matiere() {
         this.matiereProfesseur = new Professeur();
     }  
-    
-
     
     public Integer getMatiereId() {
         return matiereId;
@@ -104,14 +108,34 @@ public class Matiere implements Serializable{
         this.matiereProfesseur = matiereProfesseur;
     }
 
+    public List<Suivre> getMatiereList() {
+        return matiereList;
+    }
+
+    public void setMatiereList(List<Suivre> matiereList) {
+        this.matiereList = matiereList;
+    }
+
     @Override
     public String toString() {
-        return "Matiere{" + "matiereId=" + matiereId + ", matiereCode=" 
-                + matiereCode + ", matiereTitre=" + matiereTitre + 
-                ", matiereNbreHeure=" + matiereNbreHeure + 
+        return "Matiere{" + "matiereId=" + matiereId + ", matiereCode=" +
+                matiereCode + ", matiereTitre=" + matiereTitre + 
+                ", matiereNbreHeure=" + matiereNbreHeure +
                 ", matiereNombreECTS=" + matiereNombreECTS + 
                 ", matiereProfesseur=" + matiereProfesseur + '}';
     }
+
+    
+//    @Override
+//    public String toString() {
+//        return "Matiere{" + "matiereId=" + matiereId + ","
+//                + " matiereCode=" + matiereCode + ", matiereTitre=" 
+//                + matiereTitre + ", matiereNbreHeure=" + matiereNbreHeure +
+//                ", matiereNombreECTS=" + matiereNombreECTS + ", "
+//                + "matiereProfesseur=" + matiereProfesseur + ", "
+//                + "matiereList=" + matiereList + '}';
+//    }
+    
 
     @Override
     public int hashCode() {

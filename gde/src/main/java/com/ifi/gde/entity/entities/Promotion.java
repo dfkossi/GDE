@@ -97,9 +97,17 @@ public class Promotion implements Serializable{
     public String toString() {
         return "Promotion{" + "promoId=" + promoId + ", promotionCode=" +
                 promotionCode + ", dateOuverture=" + dateOuverture +
-                ", dateFermeture=" + dateFermeture + ", etudiantListPromo=" +
-                etudiantListPromo + '}';
+                ", dateFermeture=" + dateFermeture + '}';
     }
+
+    
+//    @Override
+//    public String toString() {
+//        return "Promotion{" + "promoId=" + promoId + ", promotionCode=" +
+//                promotionCode + ", dateOuverture=" + dateOuverture +
+//                ", dateFermeture=" + dateFermeture + ", etudiantListPromo=" +
+//                etudiantListPromo + '}';
+//    }
 
     @Override
     public int hashCode() {

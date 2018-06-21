@@ -148,6 +148,7 @@ public class UtilisateurController implements Serializable {
         } else {
             updateProfesseur();
         }
+        clearProfesseur();
         return null;
     }
 

@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../resources/main.xhtml">
+
+    <ui:define name="tarefas">
+        <p:fieldset legend="Enregistrer Notes">
+            <br/>
+
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true"/>
+                <!--<p:datatable editable="true" editMode="cell" />-->
+                <p:dataTable id="cars2" var="car" value="#{noteController.suivreList}" editable="true" 
+                             editMode="cell" widgetVar="cellCars">
+                    <f:facet name="header">
+                        Cell Editing with Click and RightClick
+                    </f:facet>
+                    
+                    <p:ajax event="cellEdit" listener="#{noteController.onCellEdit}" update=":form:msgs" />
+                    
+                    <p:column headerText="Id">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{car.suivreId}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput" value="#{car.suivreId}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    
+                    
+                    <p:column headerText="Etudiant">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{car.etudiantNote.utilisateurNom}" /></f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu  value="#{car.etudiantNote.id}" style="width:100%">
+                                    <f:selectItems value="#{utilisateurController.etudiantList}" var="etudiantNote" 
+                                                   itemLabel="#{etudiantNote.utilisateurNom}" itemValue="#{etudiantNote.id}" />
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+<!--                    <p:column headerText="Etudiant">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="{noteController.suivre.etudiantNote}" /></f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu id="etudiantNote" value="{noteController.suivre.etudiantNote.id}" style="width:100%">
+                                    <f:selectItems value="{utilisateurController.etudiantList}" var="etudiantNote" 
+                                                   itemLabel="{etudiantNote.utilisateurNom}" itemValue="{etudiantNote.id}" />
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>-->
+
+<!--orm:cars2:0:j_idt40 : «GESTION DE PROJET» doit être un nombre composé d’un ou de plusieurs chiffres.
+form:cars2:0:j_idt40 : «GESTION DE PROJET» doit être un nombre compris entre -2147483648 et 2147483647. Exemple : 9346-->
+
+
+
+
+                    <p:column headerText="Matière">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{car.matiereNote.matiereTitre}" /></f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{car.matiereNote.matiereId}" style="width:100%">
+                                    <f:selectItems value="#{matiereController.matiereList}" var="matiereNote" itemLabel="#{matiereNote.matiereTitre}" 
+                                                   itemValue="#{matiereNote.matiereId}" />
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Notes">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{car.noteObtenue}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{car.noteObtenue}" style="width:96%" label="Year"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                </p:dataTable>
+                
+                <p:contextMenu for="cars2" widgetVar="cMenu">   
+                    <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellCars').showCellEditor();
+               return false;"/>  
+                    <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('cMenu').hide()"/> 
+                </p:contextMenu> 
+                
+            </h:form>
+            
+        </p:fieldset>
+    </ui:define>
+</ui:composition>
+
+

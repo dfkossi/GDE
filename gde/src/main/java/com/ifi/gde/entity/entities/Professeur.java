@@ -67,10 +67,17 @@ public class Professeur extends Utilisateur {
 
     @Override
     public String toString() {
-        return "Professeur{" + "professeurCode=" + professeurCode + 
-                ", professeurSpecialite=" + professeurSpecialite + 
-                ", professeurListMat=" + professeurListMat + '}';
+        return "Professeur{" + "professeurCode=" + professeurCode +
+                ", professeurSpecialite=" + professeurSpecialite + '}';
     }
+
+    
+//    @Override
+//    public String toString() {
+//        return "Professeur{" + "professeurCode=" + professeurCode + 
+//                ", professeurSpecialite=" + professeurSpecialite + 
+//                ", professeurListMat=" + professeurListMat + '}';
+//    }
 
     
     @Override
