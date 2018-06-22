@@ -2,9 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui"
       ><!-- xmlns:sec="http://www.springframework.org/security/facelets/tags" -->
 
@@ -12,13 +10,13 @@
         <title>GDE - IFI</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="#{facesContext.externalContext.requestContextPath}/resources/restrict/css/semeru.css" rel="stylesheet" type="text/css" />
-        <link href="#{facesContext.externalContext.requestContextPath}/resources/restrict/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />    
+        <!--<link href="{facesContext.externalContext.requestContextPath}/resources/restrict/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />-->    
     </h:head>
 
     <h:body>
 
         <div id="topo">
-            <a href="#"><div id="logotipo"></div></a>            
+            <a href="#"><div id="logot"></div></a>            
                         
             <div id="logoff">
                 <h:form>
@@ -37,29 +35,17 @@
             <h:form>    
                 <p:menubar styleClass="labelmenu">
 
-                    <p:submenu label="Enregistrer">  
-<!--                        <p:menuitem value="Administrateur" url="/restrict/ajouterUtilisateur.faces"/>                        
-                        <p:menuitem value="Professeur" url="/restrict/ajouterProfesseur.faces"/>                        
-                        <p:menuitem value="Matiere" url="/restrict/ajouterMatiere.faces"/>                        
-                        <p:menuitem value="Promotion" url="/restrict/ajouterPromotion.faces"/>                        
-                        <p:menuitem value="Filière" url="/restrict/ajouterFiliere.faces"/>                        
-                        <p:menuitem value="Etudiant" url="/restrict/ajouterEtudiant.faces"/>                        -->
-
+                    <p:submenu label="Enregistrer"> 
                         <p:menuitem value="Administrateur" action="#{utilisateurController.clearUtilisateur()}" ajax="false"/>                        
                         <p:menuitem value="Professeur" action="#{utilisateurController.clearProfesseur()}" ajax="false"/>                        
                         <p:menuitem value="Matiere" action="#{matiereController.clearMatiere()}" ajax="false"/> 
-                        <!--<p:menuitem value="Matiere" url="/restrict/ajouterMatiere.faces"/>--> 
                         <p:menuitem value="Promotion" action="#{promotionController.clearPromotion()}" ajax="false"/>                        
                         <p:menuitem value="Filière" action="#{filiereController.clearFiliere()}" ajax="false"/> 
                         <p:menuitem value="Etudiant" action="#{utilisateurController.clearEtudiant()}" ajax="false"/> 
                         <p:menuitem value="Ajouter notes" action="#{notController.clearSuivre()}" ajax="false"/> 
-                        <!--<p:menuitem value="Etudiant" url="/restrict/ajouterEtudiant.faces"/>--> 
-<!--                        <p:menuitem value="Ajouter notes" url="/restrict/ajouterNote.faces"/> -->
-                        
-                        <!--<p:menuitem value="Etudiant" action="{utilisateurController.clearEtudiant()}" ajax="false"/>-->                        
-                    </p:submenu> 
-                    <p:submenu label="Consulter Utilisateur">  
-                        <p:menuitem value="Utilisateur" url="#"/>  
+                        </p:submenu> 
+                    <p:submenu label="Recherche">  
+                        <p:menuitem value="Etudiant" action="#{notController.clearFiltreSuivre()}" ajax="false"/>  
                     </p:submenu>                                      
                 </p:menubar> 
             </h:form>           
@@ -77,7 +63,7 @@
             <div id="copyright">                  
                 <a href="#">GDE - IFI - &copy; Copyright edu.ifi.vn 2018</a>
             </div>
-        </div> <!--Fim da div rodape -->
+        </div> 
 
     </h:body>
 

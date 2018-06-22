@@ -21,6 +21,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 /**
  *
@@ -35,13 +37,18 @@ public class NotController implements Serializable {
     private Suivre note;
 
     private Matiere matiere;
+    private Etudiant etudiant;
     private Integer idM;
 //    private Professeur professeur;
     private List<Suivre> notList;
     private List<Suivre> notList2;
+    private List<Suivre> filteredEdutiants;
+    private List<Etudiant> selectedEdutiants;
     private List<Matiere> matiereList;
     private List<Etudiant> etudiantList;
+    private List<Etudiant> etudiantList2;
     private List<Suivre> suivreList;
+    private List<Suivre> suivreList2;
 
 //    public SuivreController() {
 //    }
@@ -49,16 +56,21 @@ public class NotController implements Serializable {
     public void init() {
 //        professeur = new Professeur();
         matiere = new Matiere();
+        etudiant = new Etudiant();
         notList = new ArrayList<>();
+        filteredEdutiants = new ArrayList<>();
+        selectedEdutiants = new ArrayList<>();
         notList2 = new ArrayList<>();
         note = new Suivre();
         matiereList = matiereDAO().getEntities();
         suivreList = getSuivreList();
+        suivreList2 = getSuivreList2();
         for (Matiere mm : matiereList) {
             System.out.println(" hhhhhhhhh  " + mm);
         }
 
         etudiantList = etudiantDAO().getEntities();
+        etudiantList2 = etudiantDAO().getEntities();
         Suivre ss = new Suivre();
         int i = 1;
         for (Etudiant e : etudiantList) {
@@ -69,6 +81,35 @@ public class NotController implements Serializable {
             i++;
             notList.add(ss);
         }
+//        Suivre ssa = new Suivre();
+        for (Suivre s : suivreList) {
+            for (Etudiant et : etudiantList) {
+                if(et.getUtilisateurNom().equals(s.getEtudiantNote().getUtilisateurNom())){
+                    for(Etudiant e: etudiantList2){
+                        if(etudiantList2.contains(e)){
+                            etudiantList2.add(et);
+                        }
+                }
+                }
+            }
+        }
+//        for (Etudiant et : etudiantList) {
+//            for (Suivre s : suivreList) {
+//                if (s.getEtudiantNote().getUtilisateurNom().equals(et.getUtilisateurNom())) {
+////                if (Objects.equals(et.getUtilisateurNom(), s.getEtudiantNote().getUtilisateurNom())) {
+//                    for (Suivre sss : suivreList2) {
+//                        if (suivreList2.contains(sss)) {
+//                            
+//                            sss = new Suivre();
+//                            sss.setEtudiantNote(et);
+//                            suivreList2.add(sss);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        
+//        }
 //        professeurList = getProfesseurList();
 //        System.out.println("zzz " + professeurList.size());
 //        System.out.println("zzz " + notList.size());
@@ -114,8 +155,18 @@ public class NotController implements Serializable {
         return "/restrict/ajouterNot.faces";
     }
 
+    public String clearFiltreSuivre() {
+        note = new Suivre();
+//        professeur = new Professeur();
+        return editFiltreSuivre();
+    }
+
+    public String editFiltreSuivre() {
+        return "/restrict/consulterEtudiant.faces";
+    }
+
     public String addSuivre() {
-       // if (note.getSuivreId() != null && note.getSuivreId() != 0) {
+        // if (note.getSuivreId() != null && note.getSuivreId() != 0) {
         // updateSuivre();
         //} else {
         System.out.println("hhhhhhhhhhhh  " + notList2.size());
@@ -132,6 +183,16 @@ public class NotController implements Serializable {
         System.out.println("=====================================  " + newValue);
     }
 
+    public void onRowSelect(SelectEvent event) {
+        FacesMessage msg = new FacesMessage("Car Selected", ((Etudiant) event.getObject()).getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+ 
+//    public void onRowUnselect(UnselectEvent event) {
+//        FacesMessage msg = new FacesMessage("Car Unselected", ((Etudiant) event.getObject()).toString());
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
+//    }
+    
     private void insertSuivre() {
 
 //        note.setSuivreProfesseur(professeur);
@@ -244,6 +305,46 @@ public class NotController implements Serializable {
 
     public void setEtudiantList(List<Etudiant> etudiantList) {
         this.etudiantList = etudiantList;
+    }
+
+    public List<Suivre> getFilteredEdutiants() {
+        return filteredEdutiants;
+    }
+
+    public void setFilteredEdutiants(List<Suivre> filteredEdutiants) {
+        this.filteredEdutiants = filteredEdutiants;
+    }
+
+    public List<Suivre> getSuivreList2() {
+        return suivreList2;
+    }
+
+    public void setSuivreList2(List<Suivre> suivreList2) {
+        this.suivreList2 = suivreList2;
+    }
+
+    public Etudiant getEtudiant() {
+        return etudiant;
+    }
+
+    public void setEtudiant(Etudiant etudiant) {
+        this.etudiant = etudiant;
+    }
+
+    public List<Etudiant> getEtudiantList2() {
+        return etudiantList2;
+    }
+
+    public void setEtudiantList2(List<Etudiant> etudiantList2) {
+        this.etudiantList2 = etudiantList2;
+    }
+
+    public List<Etudiant> getSelectedEdutiants() {
+        return selectedEdutiants;
+    }
+
+    public void setSelectedEdutiants(List<Etudiant> selectedEdutiants) {
+        this.selectedEdutiants = selectedEdutiants;
     }
 
 }

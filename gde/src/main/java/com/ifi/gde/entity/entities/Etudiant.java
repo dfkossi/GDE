@@ -29,40 +29,39 @@ import org.hibernate.annotations.ForeignKey;
 @Entity
 @Table(name = "etudiant")
 @PrimaryKeyJoinColumn(name = "etudiant_id", referencedColumnName = "utilisateur_id")
-public class Etudiant extends Utilisateur implements Serializable{
-    
+public class Etudiant extends Utilisateur implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Column(name = "etudiant_matricule", nullable = false, length = 30)
     private Integer etudiantNumMatricule;
-    
+
     @Column(name = "etudiant_date_nais", nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date etudiantDateNais;
-    
+
     @Column(name = "etudiant_nationalite", length = 30)
     private String etudiantNationalite;
-   
-    @ManyToOne(optional=false, fetch = FetchType.LAZY)
-    @ForeignKey(name = "etudiant_sexe") 
-    @JoinColumn(name="sexe_id", referencedColumnName = "sexe_id")
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ForeignKey(name = "etudiant_sexe")
+    @JoinColumn(name = "sexe_id", referencedColumnName = "sexe_id")
     private Sexe etudiantSexe;
-    
-    @ManyToOne(optional=false, fetch = FetchType.LAZY)
-    @ForeignKey(name = "etudiant_filiere") 
-    @JoinColumn(name="filiere_id", referencedColumnName = "filiere_id", nullable = false)
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ForeignKey(name = "etudiant_filiere")
+    @JoinColumn(name = "filiere_id", referencedColumnName = "filiere_id", nullable = false)
     private Filiere etudiantFiliere;
-    
-    @ManyToOne(optional=false, fetch = FetchType.LAZY)
-    @ForeignKey(name = "etudiant_promotion") 
-    @JoinColumn(name="promotion_id", referencedColumnName = "promotion_id")
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ForeignKey(name = "etudiant_promotion")
+    @JoinColumn(name = "promotion_id", referencedColumnName = "promotion_id")
     private Promotion etudiantPromotion;
-    
+
     @OneToMany(mappedBy = "etudiantNote", fetch = FetchType.LAZY)
-    @ForeignKey(name = "etudiant_note")        
+    @ForeignKey(name = "etudiant_note")
     private List<Suivre> etudiantList;
-    
-    
+
     public Etudiant() {
         this.etudiantSexe = new Sexe();
         this.etudiantFiliere = new Filiere();
@@ -80,7 +79,6 @@ public class Etudiant extends Utilisateur implements Serializable{
 //        this.etudiantFiliere = etudiantFiliere;
 //        this.etudiantPromotion = etudiantPromotion;
 //    }
-
     public Integer getEtudiantNumMatricule() {
         return etudiantNumMatricule;
     }
@@ -127,7 +125,7 @@ public class Etudiant extends Utilisateur implements Serializable{
 
     public void setEtudiantPromotion(Promotion etudiantPromotion) {
         this.etudiantPromotion = etudiantPromotion;
-    }   
+    }
 
     public List<Suivre> getEtudiantList() {
         return etudiantList;
@@ -137,18 +135,18 @@ public class Etudiant extends Utilisateur implements Serializable{
         this.etudiantList = etudiantList;
     }
 
+//    @Override
+//    public String toString() {
+//        return "Etudiant{" + "etudiantNumMatricule=" + etudiantNumMatricule +
+//                ", etudiantDateNais=" + etudiantDateNais +
+//                ", etudiantNationalite=" + etudiantNationalite + 
+//                ", etudiantSexe=" + etudiantSexe + ", etudiantFiliere=" +
+//                etudiantFiliere + ", etudiantPromotion=" + etudiantPromotion + '}';
+//    }
     @Override
     public String toString() {
-        return "Etudiant{" + "etudiantNumMatricule=" + etudiantNumMatricule +
-                ", etudiantDateNais=" + etudiantDateNais +
-                ", etudiantNationalite=" + etudiantNationalite + 
-                ", etudiantSexe=" + etudiantSexe + ", etudiantFiliere=" +
-                etudiantFiliere + ", etudiantPromotion=" + etudiantPromotion + '}';
+        return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
     }
-
-    
-
-    
 
     @Override
     public int hashCode() {
@@ -156,7 +154,6 @@ public class Etudiant extends Utilisateur implements Serializable{
         hash = 47 * hash + Objects.hashCode(this.etudiantNumMatricule);
         return hash;
     }
-    
 
     @Override
     public boolean equals(Object obj) {
@@ -172,9 +169,5 @@ public class Etudiant extends Utilisateur implements Serializable{
         }
         return true;
     }
-    
-    
-    
-    
-    
+
 }

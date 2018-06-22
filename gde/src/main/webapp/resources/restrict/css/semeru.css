@@ -27,14 +27,22 @@ body {
 
 }
 
-#logotipo{
+#logot{
+   float:left ;
+/*   width:270px;
+   height:100px;*/
+   margin:10px 0 0 26px;
+   background: url(../images/logo_ifi.jpg) no-repeat;
+
+}
+/*#logotipo{
    float:left ;
    width:270px;
    height:100px;
    margin:10px 0 0 26px;
-   background: url(../images/white_logo.png) no-repeat;
+   background: url(../images/logo_ifi.jpg) no-repeat;
 
-}
+}*/
 
 #logoff{
    float:right;
