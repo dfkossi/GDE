@@ -61,12 +61,25 @@
 
     </repositories>
 
+    
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.0.0.RELEASE</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
         </dependency>
         
         <!-- || DEPENDÊNCIAS DO JAVA SERVER FACES || -->                        
@@ -313,11 +326,11 @@
         <!-- |||| DEPENDÊNCIAS DO SPRING-SECURITY || -->  
                                                  
         <!-- ### FACELETS-TAGLIB-JSF2.0-SPRING-3 ### -->
-        <dependency>
+<!--        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>facelets-taglib-jsf20-spring-3</artifactId>
             <version>0.5</version>
-        </dependency>
+        </dependency>-->
 <!--        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>facelets-taglib-jsf20-spring-3</artifactId>

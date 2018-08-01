@@ -5,7 +5,6 @@
  */
 package com.ifi.gde.entity.service;
 
-import com.ifi.gde.entity.entities.Professeur;
 import com.ifi.gde.entity.entities.Utilisateur;
 import com.ifi.gde.entity.util.FacesContextUtil;
 import java.io.Serializable;

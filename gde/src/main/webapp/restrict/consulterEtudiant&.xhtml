@@ -32,10 +32,10 @@
                         <h:outputText value="#{car.utilisateurNom}" />
                     </p:column>
 
-                    <p:column filterBy="#{car.etudiantNationalite}" headerText="Nationalité" footerText="contains" filterMatchMode="contains">
+                    <p:column filterBy="#{car.etudiantNationalite}" headerText="Nom" footerText="contains" filterMatchMode="contains">
                         <h:outputText value="#{car.etudiantNationalite}" />
                     </p:column>
-                    <p:column filterBy="#{car.etudiantSexe.sexeLibelle}" headerText="Sexe" footerText="contains" filterMatchMode="contains">
+                    <p:column filterBy="#{car.etudiantSexe.sexeLibelle}" headerText="Nom" footerText="contains" filterMatchMode="contains">
                         <h:outputText value="#{car.etudiantSexe.sexeLibelle}" />
                     </p:column>
 
@@ -89,8 +89,6 @@
                                             </h:outputText>
                                         </p:column>-->
                 </p:dataTable>
-                
-                
                 <p:dialog header="Etudiant Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <p:outputPanel id="carDetail" style="text-align:center;">
                         <p:panelGrid  columns="2" rendered="#{not empty notController.etudiant}"

@@ -13,12 +13,12 @@
         <p:fieldset legend="Liste des Etudiants">
             <h:form id="form">
                 <p:growl id="msgs" showDetail="true" />
-                <p:dataTable var="car" value="#{notController.etudiantList2}" widgetVar="carsTable"
+                <p:dataTable var="car" value="#{notController.suivreList}" widgetVar="carsTable"
                              emptyMessage="No Etudiant found with given criteria"
                              filteredValue="#{notController.filteredEdutiants}"
 
                              id="singleDT" 
-                             selectionMode="single" selection="#{notController.etudiant}"  rowKey="#{car.id}"
+                             selectionMode="single" selection="#{notController.note}"  rowKey="#{car.suivreId}"
                              >
 
                     <f:facet name="header">
@@ -28,25 +28,25 @@
                         </p:outputPanel>
                     </f:facet>
 
-                    <p:column filterBy="#{car.utilisateurNom}" headerText="Nom" footerText="contains" filterMatchMode="contains">
-                        <h:outputText value="#{car.utilisateurNom}" />
+                    <p:column filterBy="#{car.etudiantNote.utilisateurNom}" headerText="Nom Etudiant" footerText="contains" filterMatchMode="contains">
+                        <h:outputText value="#{car.etudiantNote.utilisateurNom}" />
                     </p:column>
 
-                    <p:column filterBy="#{car.etudiantNationalite}" headerText="Nationalité" footerText="contains" filterMatchMode="contains">
-                        <h:outputText value="#{car.etudiantNationalite}" />
+                    <p:column filterBy="#{car.matiereNote.matiereTitre}" headerText="Module" footerText="contains" filterMatchMode="contains">
+                        <h:outputText value="#{car.matiereNote.matiereTitre}" />
                     </p:column>
-                    <p:column filterBy="#{car.etudiantSexe.sexeLibelle}" headerText="Sexe" footerText="contains" filterMatchMode="contains">
-                        <h:outputText value="#{car.etudiantSexe.sexeLibelle}" />
+                    <p:column filterBy="#{car.noteObtenue}" headerText="Note obtenue" footerText="contains" filterMatchMode="contains">
+                        <h:outputText value="#{car.noteObtenue}" />
                     </p:column>
-
-                    <p:column filterBy="#{car.etudiantDateNais}" headerText="Year" footerText="lte" filterMatchMode="lte">
+<!--
+                    <p:column filterBy="{car.etudiantDateNais}" headerText="Year" footerText="lte" filterMatchMode="lte">
                         <f:facet name="filter">
                             <p:spinner onchange="PF('carsTable').filter()" styleClass="year-spinner">
                                 <f:converter converterId="javax.faces.Integer" />
                             </p:spinner>
                         </f:facet>
-                        <h:outputText value="#{car.etudiantDateNais}" />
-                    </p:column>
+                        <h:outputText value="{car.etudiantDateNais}" />
+                    </p:column>-->
                     <f:facet name="footer">
                         <p:commandButton process="singleDT" update=":form:carDetail" 
                                          icon="ui-icon-search" value="View" oncomplete="PF('carDialog').show()" />
@@ -91,46 +91,36 @@
                 </p:dataTable>
                 
                 
-                <p:dialog header="Etudiant Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:dialog header="Note de l'étudiant suivant le Module" widgetVar="carDialog" modal="true" 
+                          showEffect="fade" hideEffect="fade" resizable="false">
                     <p:outputPanel id="carDetail" style="text-align:center;">
-                        <p:panelGrid  columns="2" rendered="#{not empty notController.etudiant}"
+                        <p:panelGrid  columns="2" rendered="#{not empty notController.note}"
                                       columnClasses="label,value">
 <!--                            <f:facet name="header">
                                 <p:graphicImage name="demo/images/car/{dtSelectionView.selectedCar.brand}-big.gif"/> 
                             </f:facet>-->
 
                             <h:outputText value="Matricule:" />
-                            <h:outputText value="#{notController.etudiant.etudiantNumMatricule}" />
+                            <h:outputText value="#{notController.note.etudiantNote.etudiantNumMatricule}" />
 
                             <h:outputText value="Nom" />
-                            <h:outputText value="#{notController.etudiant.utilisateurNom}" />
+                            <h:outputText value="#{notController.note.etudiantNote.utilisateurNom}" />
 
                             <h:outputText value="Prénom" />
-                            <h:outputText value="#{notController.etudiant.utilisateurPrenom}" />
+                            <h:outputText value="#{notController.note.etudiantNote.utilisateurPrenom}" />
                             
-                            <h:outputText value="Date naissance" />
-                            <h:outputText value="#{notController.etudiant.etudiantDateNais}" />
-                            
-                            <h:outputText value="Sexe" />
-                            <h:outputText value="#{notController.etudiant.etudiantSexe.sexeLibelle}" />
-
-                            <h:outputText value="Nationalité" />
-                            <h:outputText value="#{notController.etudiant.etudiantNationalite}" />
-
                             <h:outputText value="Promotion" />
-                            <h:outputText value="#{notController.etudiant.etudiantPromotion.promotionCode}" />
+                            <h:outputText value="#{notController.note.etudiantNote.etudiantPromotion.promotionCode}" />
                             
                             <h:outputText value="Filière" />
-                            <h:outputText value="#{notController.etudiant.etudiantFiliere.filiereLibelle}" />
+                            <h:outputText value="#{notController.note.etudiantNote.etudiantFiliere.filiereLibelle}" />
                             
-                            <h:outputText value="E-mail" />
-                            <h:outputText value="#{notController.etudiant.utilisateurEmail}" />
+                            <h:outputText value="Module" />
+                            <h:outputText value="#{notController.note.matiereNote.matiereTitre}" />
 
-                            <h:outputText value="Login" />
-                            <h:outputText value="#{notController.etudiant.login}" />
+                            <h:outputText value="Note" />
+                            <h:outputText value="#{notController.note.noteObtenue}" />
 
-                            <h:outputText value="Permission" />
-                            <h:outputText value="#{notController.etudiant.permission}" />
 
                         </p:panelGrid>
                     </p:outputPanel>
