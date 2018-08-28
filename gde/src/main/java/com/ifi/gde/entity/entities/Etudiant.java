@@ -42,6 +42,13 @@ public class Etudiant extends Utilisateur implements Serializable {
 
     @Column(name = "etudiant_nationalite", length = 30)
     private String etudiantNationalite;
+    
+    @Column(name = "etudiant_average", length = 30)
+    private Double etudiantAverage;
+    
+//    @Lob
+//    @Column(name="etudiant_photo", nullable=false, columnDefinition="mediumblob")
+//    private byte[] etudiantPhoto;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @ForeignKey(name = "etudiant_sexe")
@@ -61,6 +68,15 @@ public class Etudiant extends Utilisateur implements Serializable {
     @OneToMany(mappedBy = "etudiantNote", fetch = FetchType.LAZY)
     @ForeignKey(name = "etudiant_note")
     private List<Suivre> etudiantList;
+//    
+//    @ManyToOne(optional=false, fetch = FetchType.LAZY)
+//    @ForeignKey(name = "photo_etudiant") 
+//    @JoinColumn(name="etudiant_id", referencedColumnName = "etudiant_id")
+//    private Etudiant photoEtudiant;
+//    
+    @OneToMany(mappedBy = "photoEtudiant", fetch = FetchType.LAZY)
+    @ForeignKey(name = "photo_etudiant")        
+    private List<Photo> photoEtudiantList;
 
     public Etudiant() {
         this.etudiantSexe = new Sexe();
@@ -68,17 +84,6 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.etudiantPromotion = new Promotion();
     }
 
-//    public Etudiant(Integer etudiantNumMatricule, Date etudiantDateNais,
-//            String etudiantNationalite, Sexe etudiantSexe, 
-//            Filiere etudiantFiliere, Promotion etudiantPromotion) {
-//        
-//        this.etudiantNumMatricule = etudiantNumMatricule;
-//        this.etudiantDateNais = etudiantDateNais;
-//        this.etudiantNationalite = etudiantNationalite;
-//        this.etudiantSexe = etudiantSexe;
-//        this.etudiantFiliere = etudiantFiliere;
-//        this.etudiantPromotion = etudiantPromotion;
-//    }
     public Integer getEtudiantNumMatricule() {
         return etudiantNumMatricule;
     }
@@ -135,6 +140,24 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.etudiantList = etudiantList;
     }
 
+    public List<Photo> getPhotoEtudiantList() {
+        return photoEtudiantList;
+    }
+
+    public void setPhotoEtudiantList(List<Photo> photoEtudiantList) {
+        this.photoEtudiantList = photoEtudiantList;
+    }
+
+    public Double getEtudiantAverage() {
+        return etudiantAverage;
+    }
+
+    public void setEtudiantAverage(Double etudiantAverage) {
+        this.etudiantAverage = etudiantAverage;
+    }
+
+    
+    
 //    @Override
 //    public String toString() {
 //        return "Etudiant{" + "etudiantNumMatricule=" + etudiantNumMatricule +

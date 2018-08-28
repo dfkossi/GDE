@@ -13,101 +13,106 @@
             <br/>
             <p:tabView id="tbv1" dynamic="true" cache="true">
                 <p:tab title="Etudiant">
-                    <h:form prependId="false" id="formEtudiant">
+                    <h:form prependId="false" id="formEtudiant" enctype="multipart/form-data">
                         <p:growl id="msg0"/>
                         <h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid" id="grid0">
-                            
+
                             <h:outputLabel/>
                             <h:inputHidden id="idcidade" value="#{utilisateurController.etudiant.id}"/> 
+
+
+                            <h:outputLabel for="nomEtudiant" value="Nom.:"/>
+                            <p:inputText id="nomEtudiant" size="40" value="#{utilisateurController.etudiant.utilisateurNom}"
+                                         required="true" requiredMessage="Le champ [Nom] est obligatoire"
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                            <h:outputLabel for="prenomEtudiant" value="Prénom.:"/>
+                            <p:inputText id="prenomEtudiant" size="40" value="#{utilisateurController.etudiant.utilisateurPrenom}"
+                                         required="true" requiredMessage="Le champ [Prenom] est obligatoire"
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                            <h:outputLabel for="matriculeEtudiant" value="Matricule.:"/>
+                            <p:inputText id="matriculeEtudiant" size="20" value="#{utilisateurController.etudiant.etudiantNumMatricule}"
+                                         required="true" requiredMessage="Le champ [Code] est obligatoire"
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                            <h:outputLabel for="sexeEtudiant" value="Sexe.:"/>
+                            <p:selectOneMenu id="sexeEtudiant" value="#{utilisateurController.etudiant.etudiantSexe.sexeId}">
+                                <f:selectItems value="#{sexeController.sexeList}" 
+                                               var="sexeEtudiant" itemValue="#{sexeEtudiant.sexeId}" 
+                                               itemLabel="#{sexeEtudiant.sexeLibelle}"/>
+                            </p:selectOneMenu>
+
+<!--                            <h:outputLabel for="photoEtudiant" value="Photo.:"/>
+                            <p:fileUpload id="photoEtudiant" value="{utilisateurController.etudiant.etudiantPhoto}" mode="simple" skinSimple="true"/>
+                            <p:commandButton value="Submit" ajax="false" actionListener="{utilisateurController.upload}"
+                                             />-->
                             
-                            
-                                <h:outputLabel for="nomEtudiant" value="Nom.:"/>
-                                <p:inputText id="nomEtudiant" size="40" value="#{utilisateurController.etudiant.utilisateurNom}"
-                                             required="true" requiredMessage="Le champ [Nom] est obligatoire"
-                                             onkeyup="this.value = this.value.toUpperCase()"/>
-                                
-                                <h:outputLabel for="prenomEtudiant" value="Prénom.:"/>
-                                <p:inputText id="prenomEtudiant" size="40" value="#{utilisateurController.etudiant.utilisateurPrenom}"
-                                             required="true" requiredMessage="Le champ [Prenom] est obligatoire"
-                                             onkeyup="this.value = this.value.toUpperCase()"/>
-                                
-                                <h:outputLabel for="matriculeEtudiant" value="Matricule.:"/>
-                                <p:inputText id="matriculeEtudiant" size="20" value="#{utilisateurController.etudiant.etudiantNumMatricule}"
-                                             required="true" requiredMessage="Le champ [Code] est obligatoire"
-                                             onkeyup="this.value = this.value.toUpperCase()"/>
-                                
-                                <h:outputLabel for="sexeEtudiant" value="Sexe.:"/>
-                                <p:selectOneMenu id="sexeEtudiant" value="#{utilisateurController.etudiant.etudiantSexe.sexeId}">
-                                    <f:selectItems value="#{sexeController.sexeList}" 
-                                                   var="sexeEtudiant" itemValue="#{sexeEtudiant.sexeId}" 
-                                                   itemLabel="#{sexeEtudiant.sexeLibelle}"/>
-                                </p:selectOneMenu>
-                                
-                                
-                                <h:outputLabel for="nationaliteEtudiant" value="Nationalité.:"/>
-                                <p:inputText id="nationaliteEtudiant" size="40" value="#{utilisateurController.etudiant.etudiantNationalite}"
-                                             required="true" requiredMessage="Le champ [Nationalite] est obligatoire"
-                                             onkeyup="this.value = this.value.toUpperCase()"/>
-                                
-                                
-                                <h:outputLabel for="dateNaisEtudiant" value="Data naissance.:"/>
-                                <p:calendar id="dateNaisEtudiant" value="#{utilisateurController.etudiant.etudiantDateNais}"
-                                            required="true" requiredMessage="Le champ [Date naissance] est obligatoire"
-                                            locale="pt_BR" navigator="true" effect="explode" pattern="dd/MM/yyyy"/>
-                                
-                                <h:outputLabel for="filiereEtudiant" value="Filière.:"/>
-                                <p:selectOneMenu id="filiereEtudiant" value="#{utilisateurController.etudiant.etudiantFiliere.filiereId}">
-                                    <f:selectItems value="#{filiereController.filiereList}" 
-                                                   var="filiereEtudiant" itemValue="#{filiereEtudiant.filiereId}" 
-                                                   itemLabel="#{filiereEtudiant.filiereLibelle}"/>
-                                </p:selectOneMenu>
-                                
-                                <h:outputLabel for="promotionEtudiant" value="Promotion.:"/>
-                                <p:selectOneMenu id="promotionEtudiant" value="#{utilisateurController.etudiant.etudiantPromotion.promoId}">
-                                    <f:selectItems value="#{promotionController.promotionList}" 
-                                                   var="promotionEtudiant" itemValue="#{promotionEtudiant.promoId}" 
-                                                   itemLabel="#{promotionEtudiant.promotionCode}"/>
-                                </p:selectOneMenu>
-                                
-                                <h:outputLabel for="telephoneEtudiant" value="Telephone.:"/>
-                                <p:inputMask id="telephoneEtudiant" size="20" mask="(84) 99-99-99-999"
-                                             value="#{utilisateurController.etudiant.utilisateurTelephone}"
-                                             required="true" requiredMessage="Le champ [Telephone] est obligatoire"
-                                             onkeyup="this.value = this.value.toUpperCase()"/>
+                            <h:outputLabel for="nationaliteEtudiant" value="Nationalité.:"/>
+                            <p:inputText id="nationaliteEtudiant" size="40" value="#{utilisateurController.etudiant.etudiantNationalite}"
+                                         required="true" requiredMessage="Le champ [Nationalite] est obligatoire"
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
 
-                                <h:outputLabel for="emailEtudiant" value="E-mail.:"/>
-                                <p:inputText id="emailEtudiant" size="40" value="#{utilisateurController.etudiant.utilisateurEmail}"
-                                             required="true" requiredMessage="Le champ [E-mail] est obligatoire">
-                                    <f:validator validatorId="emailValidator"/>
-                                </p:inputText>
 
-                                <h:outputLabel for="login" value="Login.:"/>
-                                <p:inputText id="login" value="#{utilisateurController.etudiant.login}" size="30"/>
+                            <h:outputLabel for="dateNaisEtudiant" value="Data naissance.:"/>
+                            <p:calendar id="dateNaisEtudiant" value="#{utilisateurController.etudiant.etudiantDateNais}"
+                                        required="true" requiredMessage="Le champ [Date naissance] est obligatoire"
+                                        locale="pt_BR" navigator="true" effect="explode" pattern="dd/MM/yyyy"/>
 
-                                <h:outputLabel for="password" value="Password.:" />
-                                <p:password id="password" size="30" maxlength="22" promptLabel="Entrez votre mot de passe" 
-                                            value="#{utilisateurController.pwdConverter}"
-                                            weakLabel="Password Faible" goodLabel="Password Moyen" strongLabel="Password Fort" 
-                                            feedback="true"/> 
+                            <h:outputLabel for="filiereEtudiant" value="Filière.:"/>
+                            <p:selectOneMenu id="filiereEtudiant" value="#{utilisateurController.etudiant.etudiantFiliere.filiereId}">
+                                <f:selectItems value="#{filiereController.filiereList}" 
+                                               var="filiereEtudiant" itemValue="#{filiereEtudiant.filiereId}" 
+                                               itemLabel="#{filiereEtudiant.filiereLibelle}"/>
+                            </p:selectOneMenu>
 
-                                <h:outputLabel for="passwordconf2" value="Confirmer Password.:"/>
-                                <p:password id="passwordconf2" size="30" value="#{utilisateurController.etudiant.password}" maxlength="22"   
-                                            promptLabel="Vérifier le mot de passe" weakLabel="Password Faible" validator="passwordValidator"
-                                            goodLabel="Password Moyen" strongLabel="Password Fort" feedback="true">
-                                </p:password> 
-                       
-                            
+                            <h:outputLabel for="promotionEtudiant" value="Promotion.:"/>
+                            <p:selectOneMenu id="promotionEtudiant" value="#{utilisateurController.etudiant.etudiantPromotion.promoId}">
+                                <f:selectItems value="#{promotionController.promotionList}" 
+                                               var="promotionEtudiant" itemValue="#{promotionEtudiant.promoId}" 
+                                               itemLabel="#{promotionEtudiant.promotionCode}"/>
+                            </p:selectOneMenu>
+
+                            <h:outputLabel for="telephoneEtudiant" value="Telephone.:"/>
+                            <p:inputMask id="telephoneEtudiant" size="20" mask="(84) 99-99-99-999"
+                                         value="#{utilisateurController.etudiant.utilisateurTelephone}"
+                                         required="true" requiredMessage="Le champ [Telephone] est obligatoire"
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                            <h:outputLabel for="emailEtudiant" value="E-mail.:"/>
+                            <p:inputText id="emailEtudiant" size="40" value="#{utilisateurController.etudiant.utilisateurEmail}"
+                                         required="true" requiredMessage="Le champ [E-mail] est obligatoire">
+                                <f:validator validatorId="emailValidator"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="login" value="Login.:"/>
+                            <p:inputText id="login" value="#{utilisateurController.etudiant.login}" size="30"/>
+
+                            <h:outputLabel for="password" value="Password.:" />
+                            <p:password id="password" size="30" maxlength="22" promptLabel="Entrez votre mot de passe" 
+                                        value="#{utilisateurController.pwdConverter}"
+                                        weakLabel="Password Faible" goodLabel="Password Moyen" strongLabel="Password Fort" 
+                                        feedback="true"/> 
+
+                            <h:outputLabel for="passwordconf2" value="Confirmer Password.:"/>
+                            <p:password id="passwordconf2" size="30" value="#{utilisateurController.etudiant.password}" maxlength="22"   
+                                        promptLabel="Vérifier le mot de passe" weakLabel="Password Faible" validator="passwordValidator"
+                                        goodLabel="Password Moyen" strongLabel="Password Fort" feedback="true">
+                            </p:password> 
+
+
                             <p:panel>
                                 <p:commandButton value="Ajouter" action="#{utilisateurController.addEtudiant()}"
-                                    image="ui-icon ui-icon-disk" update="@form :formtable"/>
-                                <p:commandButton value="Annuler" actionListener="#{utilisateurController.clearEtudiant()}" 
-                                    image="ui-icon ui-icon-close" update="@form"/>
+                                                 actionListener="#{utilisateurController.upload}"
+                                                 image="ui-icon ui-icon-disk" update="@form :formtable"/>
+                                <p:commandButton value="Annuler" actionListener="#{utilisateurController.clearEtudiant()}" ajax="false"  
+                                                 image="ui-icon ui-icon-close" update="@form"/>
                             </p:panel>
                         </h:panelGrid>
                     </h:form>
                 </p:tab>
             </p:tabView>
-            
+
             <h:form id="formtable">
                 <p:growl id="msg1"/>
                 <p:dataTable id="idTabela" var="etudiant" value="#{utilisateurController.etudiantList}"
@@ -115,9 +120,9 @@
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
                              {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
-                
+
                     <f:facet name="header">Liste des Etudiants</f:facet>
-                    
+
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Login"/>
@@ -154,29 +159,29 @@
                         </f:facet>
                         <h:outputText value="#{etudiant.etudiantPromotion.promotionCode}"/>
                     </p:column>
-                    
+
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Action"/>
                         </f:facet>
                         <p:commandButton value="Editer" image="ui-icon ui-icon-pencil"
-                                process="@this" update=":tbv1:formEtudiant">
+                                         process="@this" update=":tbv1:formEtudiant">
                             <f:setPropertyActionListener target="#{utilisateurController.etudiant}"
                                                          value="#{etudiant}"/>
                         </p:commandButton>
                         <p:commandButton value="Supprimer" action="#{utilisateurController.deleteEtudiant()}"
-                                image="ui-icon ui-icon-close" update="@form"
-                                onclick="return confirm('Are you sure to delete this Etudiant?')">
+                                         image="ui-icon ui-icon-close" update="@form"
+                                         onclick="return confirm('Are you sure to delete this Etudiant?')">
                             <f:setPropertyActionListener target="#{utilisateurController.etudiant}"
                                                          value="#{etudiant}"/>
                         </p:commandButton>
-                        
+
                     </p:column>
-                    
+
                 </p:dataTable>
-                
+
             </h:form>
-            
+
         </p:fieldset>
     </ui:define>
 </ui:composition>

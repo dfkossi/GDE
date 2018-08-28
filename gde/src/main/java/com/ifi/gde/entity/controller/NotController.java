@@ -239,7 +239,7 @@ public class NotController implements Serializable {
         FacesMessage msg = new FacesMessage("Car Selected", ((Etudiant) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
     private void insertSuivre() {
         int i = 0;
         int k = 0;

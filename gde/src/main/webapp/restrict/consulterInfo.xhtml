@@ -9,6 +9,7 @@
                 template="./../resources/main.xhtml">
 
     <ui:define name="tarefas">
+        <p:fieldset legend="Informations Etudiant">
         <h:form id="form">
             <p:panelGrid columns="2" layout="grid">     
                 <!--<p:growl id="msgs" showDetail="true" />-->
@@ -18,43 +19,26 @@
                                             Select Events
                                         </f:facet>-->
                     <p:ajax event="rowSelect" listener="#{infoController.onRowSelect}" update="@form" />
-                    <f:facet name="header">
+<!--                    <f:facet name="header">
                         <p:outputPanel>
                             <h:outputText value="Search all fields:" />
                             <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" 
                                          style="width:150px" placeholder="Enter keyword"/>
                         </p:outputPanel>
-                    </f:facet>
+                    </f:facet>-->
 
                     <p:column filterBy="#{car.utilisateurNom}" headerText="Nom" footerText="contains" filterMatchMode="contains">
                         <h:outputText value="#{car.utilisateurNom} #{car.utilisateurPrenom}" />
                     </p:column>
-
-<!--                    <p:column filterBy="{car.etudiantNationalite}" headerText="Nationalité" footerText="contains" filterMatchMode="contains">
-                        <h:outputText value="{car.etudiantNationalite}" />
-                    </p:column>
-                    <p:column filterBy="{car.etudiantSexe.sexeLibelle}" headerText="Sexe" footerText="contains" filterMatchMode="contains">
-                        <h:outputText value="{car.etudiantSexe.sexeLibelle}" />
-                    </p:column>
-
-                    <p:column filterBy="{car.etudiantDateNais}" headerText="Year" footerText="lte" filterMatchMode="lte">
-                        <f:facet name="filter">
-                            <p:spinner onchange="PF('carsTable').filter()" styleClass="year-spinner">
-                                <f:converter converterId="javax.faces.Integer" />
-                            </p:spinner>
-                        </f:facet>
-                        <h:outputText value="{car.etudiantDateNais}" />
-                    </p:column>-->
-
-                    <!--                    <f:facet name="footer">
-                                            <p:commandButton process="singleDT" update=":form:carDetail,:form:carDetail1" 
-                                                             icon="ui-icon-search" value="View" oncomplete="PF('carDialog').show()" />
-                                        </f:facet>-->
                 </p:dataTable>
+                
 
-                <p:outputPanel  style="text-align:center;">
+                <p:outputPanel  style="text-align:center; width: 100% !important;">
+                    <h:outputText  value="Fiche d'informations" style=" width: 100% !important; 
+                                       margin-left: -92px;  font-size: large; margin-right: 40px !important;"/>
+                    
                     <p:panelGrid id="carDetail1" columns="2" rendered="#{not empty infoController.listNotes}"
-                                 columnClasses="label,value">
+                                 columnClasses="label,value"  style=" width: 100% !important; margin-bottom: 10px;">
 
 
                         <h:outputText value="Matricule:" />
@@ -83,16 +67,21 @@
 
                         <h:outputText value="E-mail" />
                         <h:outputText value="#{infoController.etudiant.utilisateurEmail}" />
-
+                       
                         <h:outputText value="Login" />
                         <h:outputText value="#{infoController.etudiant.login}" />
-
+                        
                         <h:outputText value="Permission" />
                         <h:outputText value="#{infoController.etudiant.permission}" />
-
+                        
                     </p:panelGrid>
+                    
+                    <h:outputText  value="Fiche de notes" style=" width: 100% !important; 
+                                       margin-left: -92px;  font-size: large; margin-right: 40px !important;"/>
+                    
                     <p:dataTable id="carDetail" var="car" value="#{infoController.listNotes}" widgetVar="carsTable"
-                                 emptyMessage="No Etudiant found with given criteria" rowKey="#{car.id}">
+                                 emptyMessage="No Etudiant found with given criteria" rowKey="#{car.id}" 
+                                 style="margin-bottom: 26px; margin-top: 10px;">
 
 
                         <p:column  headerText="Module" >
@@ -101,11 +90,18 @@
                         <p:column  headerText="Note obtenue" >
                             <h:outputText value="#{car.noteObtenue}" />
                         </p:column>
+                        
                     </p:dataTable>
+                    <!--<p:panelGrid  style=" width: 100% !important;">-->
+                    <h:outputText  value="Moyenne obtenue" style=" width: 100% !important; 
+                                       margin-left: -92px;  font-size: large; margin-right: 40px !important;"/>
+                    <h:outputText value="#{infoController.average}"  style=" border: 3px solid black;  padding: 2px;"/>
+                    <!--</p:panelGrid>-->
                 </p:outputPanel>
 
 
             </p:panelGrid>
         </h:form>
+            </p:fieldset>
     </ui:define>
 </ui:composition>

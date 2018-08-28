@@ -42,11 +42,12 @@
                         <p:menuitem value="Promotion" action="#{promotionController.clearPromotion()}" ajax="false"/>                        
                         <p:menuitem value="Filière" action="#{filiereController.clearFiliere()}" ajax="false"/> 
                         <p:menuitem value="Etudiant" action="#{utilisateurController.clearEtudiant()}" ajax="false"/> 
+                        <!--<p:menuitem value="Catalogue Photo" action="{photoController.clearPhoto()}" ajax="false"/>--> 
                         <p:menuitem value="Ajouter notes" action="#{notController.clearSuivre()}" ajax="false"/> 
                         </p:submenu> 
                     <p:submenu label="Recherche">  
-                        <p:menuitem value="Etudiant" action="#{notController.clearFiltreSuivre()}" ajax="false"/>  
-                        <p:menuitem value="Notes" action="#{notController.clearNoteSuivre()}" ajax="false"/>  
+                        <!--<p:menuitem value="Etudiant" action="{notController.clearFiltreSuivre()}" ajax="false"/>-->  
+                        <p:menuitem value="Notes par matière" action="#{infoController.clearMatiereNote()}" ajax="false"/>  
                         <p:menuitem value="Infos" action="#{infoController.clearNoteSuivre()}" ajax="false"/>  
                     </p:submenu>                                      
                 </p:menubar> 

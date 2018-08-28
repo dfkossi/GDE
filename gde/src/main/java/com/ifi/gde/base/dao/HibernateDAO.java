@@ -6,8 +6,15 @@
 package com.ifi.gde.base.dao;
 
 import static com.ifi.gde.entity.util.HibernateIfiGdeUtils.getSessionFactory;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.List;
+import org.apache.commons.io.IOUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -103,5 +110,10 @@ public class HibernateDAO<T> implements InterfaceDAO<T>, Serializable {
         return enties;
     }    
     
+    @Override
+    public void saveFile(InputStream inputStream, File file) throws FileNotFoundException, IOException{
+        OutputStream output = new FileOutputStream(file);
+        IOUtils.copy(inputStream, output);
+    }
 }
     

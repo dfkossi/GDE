@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ifi.gde.entity.controller;
 
 import com.ifi.gde.base.dao.HibernateDAO;
@@ -12,6 +7,7 @@ import com.ifi.gde.entity.entities.Matiere;
 import com.ifi.gde.entity.entities.Suivre;
 import com.ifi.gde.entity.util.FacesContextUtil;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.TreeTableColumn.CellEditEvent;
@@ -19,8 +15,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -55,12 +49,9 @@ public class InfoController implements Serializable {
     private List<Suivre> suivreList;
     private List<Suivre> suivreList2;
     private List<Suivre> listNotes = new ArrayList<>();
-//    @Inject
-//    private SuivreRepository suivreRepository;
-//    @Autowired
-//    private SuivreService suivreService = new SuivreService();
-//    public SuivreController() {
-//    }
+    private List<Suivre> listMatiereNotes = new ArrayList<>();
+    private Double moyenne = 0.0;
+    private Double average = 0.0;
 
     @PostConstruct
     public void init() {
@@ -73,9 +64,10 @@ public class InfoController implements Serializable {
         selectedEdutiants = new ArrayList<>();
         notList2 = new ArrayList<>();
         note = new Suivre();
-        matiereList = matiereDAO().getEntities();
+        matiereList = new ArrayList<>();
         suivreList = getSuivreList();
         suivreList2 = getSuivreList2();
+
         for (Matiere mm : matiereList) {
             System.out.println(" hhhhhhhhh  " + mm);
         }
@@ -108,6 +100,21 @@ public class InfoController implements Serializable {
             }
 
         }
+        for (Suivre s : suivreList) {
+            int o = 0;
+            List<Matiere> lk = new ArrayList();
+            lk.addAll(matiereList);
+            for (Matiere mat : lk) {
+                if (mat.getMatiereId() == s.getMatiereNote().getMatiereId()) {
+                    o = 1;
+                    break;
+                }
+            }
+            if (o == 0) {
+                matiereList.add(s.getMatiereNote());
+            }
+
+        }
 //        for (Suivre s : suivreList) {
 //            for (Etudiant et : etudiantList) {
 //                if (et.getUtilisateurNom().equals(s.getEtudiantNote().getUtilisateurNom())) {
@@ -120,6 +127,14 @@ public class InfoController implements Serializable {
 //            }
 //        }
 
+    }
+
+    public Double getMoyenne() {
+        return moyenne;
+    }
+
+    public void setMoyenne(Double moyenne) {
+        this.moyenne = moyenne;
     }
 
     public Integer getIdM() {
@@ -149,7 +164,6 @@ public class InfoController implements Serializable {
 
     public String clearSuivre() {
         note = new Suivre();
-//        professeur = new Professeur();
         return editSuivre();
     }
 
@@ -157,19 +171,17 @@ public class InfoController implements Serializable {
         return "/restrict/ajouterNot.faces";
     }
 
-    public String clearFiltreSuivre() {
+    public String clearMatiereNote() {
         note = new Suivre();
-//        professeur = new Professeur();
-        return editFiltreSuivre();
+        return editMatiereNote();
     }
 
-    public String editFiltreSuivre() {
-        return "/restrict/consulterEtudiant.faces";
+    public String editMatiereNote() {
+        return "/restrict/consulterMatiereNotes.faces";
     }
 
     public String clearNoteSuivre() {
         note = new Suivre();
-//        professeur = new Professeur();
         return editNoteSuivre();
     }
 
@@ -177,9 +189,6 @@ public class InfoController implements Serializable {
         return "/restrict/consulterInfo.faces";
     }
 
-//    public void noteInfo() {
-//        System.out.println("Choco");
-//    }
     public String addSuivre() {
         // if (note.getSuivreId() != null && note.getSuivreId() != 0) {
         // updateSuivre();
@@ -207,27 +216,54 @@ public class InfoController implements Serializable {
         Query query = session.createQuery("SELECT c FROM  Suivre c WHERE c.etudiantNote.id= ?");
         query.setInteger(0, etd.getId());
         listNotes = (List<Suivre>) query.list();
-//        for (Suivre s : listNotes) {
-//            System.out.println("voilaaaaaaaaaa" + s.getEtudiantNote().getUtilisateurNom() + s.getMatiereNote().getMatiereTitre() + s.getNoteObtenue()
-//                    + s.getEtudiantNote().getEtudiantPromotion().getPromotionCode());
-//        }
-//        for (Etudiant et : etudiantList2) {
-//            System.out.println("voiciiiiiiiiii" + et.getEtudiantPromotion().getPromotionCode());
-//        }
 
-//        System.out.println("hepppppppppppppppppp" + listNotes);
-//        FacesMessage msg = new FacesMessage("Car Selected", ((Etudiant) event.getObject()).getId().toString());
-//        FacesContext.getCurrentInstance().addMessage(null, msg);
+//        public Double calculMoyenne(){
+        for (Suivre s : listNotes) {
+            System.out.println("toto" + s.getNoteObtenue());
+            System.out.println("toto" + listNotes.size());
+        }
+//        for (Etudiant et : etudiantList) {
+         int totalCoef = 0;
+            for (Suivre s : listNotes) {
+                moyenne += (s.getNoteObtenue() * s.getMatiereNote().getMatiereNombreECTS());
+                totalCoef += s.getMatiereNote().getMatiereNombreECTS();
+            }
+//            moyenne += s.getEtudiantNote().getNoteObtenue();
+//        }
+        
+        average = moyenne / totalCoef;
+        BigDecimal bd = new BigDecimal(average);
+        bd= bd.setScale(2,BigDecimal.ROUND_DOWN);
+        average = bd.doubleValue();
+        etd.setEtudiantAverage(average);
+        
+    }
+
+    public void onRowSelectMatiere(SelectEvent event) {
+        Matiere mat = (Matiere) event.getObject();
+        idSauv = mat.getMatiereId();
+        Session session = FacesContextUtil.getRequestSession();
+        Query query = session.createQuery("SELECT c FROM  Suivre c WHERE c.matiereNote.matiereId= ?");
+        query.setInteger(0, mat.getMatiereId());
+        listMatiereNotes = (List<Suivre>) query.list();
+        
+    }
+
+    public Double getAverage() {
+        return average;
+    }
+
+    public void setAverage(Double average) {
+        this.average = average;
     }
 
     public void onRowUnselect(UnselectEvent event) {
-        FacesMessage msg = new FacesMessage("Car Unselected", ((Etudiant) event.getObject()).getId().toString());
+        FacesMessage msg = new FacesMessage("Etudiant non selectionné", ((Etudiant) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     private void insertSuivre() {
-
-//        note.setSuivreProfesseur(professeur);
+        
         for (Suivre sv : notList) {
             System.out.println("affichepppppppppppppppppppp " + sv.getNoteObtenue());
             sv.setSuivreId(null);
@@ -425,6 +461,14 @@ public class InfoController implements Serializable {
 
     public void setIdSauv(Integer idSauv) {
         this.idSauv = idSauv;
+    }
+
+    public List<Suivre> getListMatiereNotes() {
+        return listMatiereNotes;
+    }
+
+    public void setListMatiereNotes(List<Suivre> listMatiereNotes) {
+        this.listMatiereNotes = listMatiereNotes;
     }
 
 }

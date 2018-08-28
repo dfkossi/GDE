@@ -40,5 +40,6 @@
         <mapping class="com.ifi.gde.entity.entities.Suivre"/>
         <mapping class="com.ifi.gde.entity.entities.SuivrePK"/>
         <mapping class="com.ifi.gde.entity.entities.Utilisateur"/>
+        <mapping class="com.ifi.gde.entity.entities.Photo"/>
     </session-factory>
 </hibernate-configuration>

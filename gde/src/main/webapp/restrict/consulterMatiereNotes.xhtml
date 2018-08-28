@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./../resources/main.xhtml">
+
+    <ui:define name="tarefas">
+        <p:fieldset legend="Informations sur les notes par matière">
+        <h:form id="form">
+            <p:panelGrid columns="2" layout="grid">     
+                <!--<p:growl id="msgs" showDetail="true" />-->
+                <p:dataTable id="singleDT" var="car" value="#{infoController.matiereList}" 
+                             selectionMode="single" selection="#{infoController.matiere}" rowKey="#{car.matiereId}">
+                    
+                    <p:ajax event="rowSelect" listener="#{infoController.onRowSelectMatiere}" update="@form" />
+
+                    <p:column filterBy="#{car.matiereTitre}" headerText="Module" footerText="contains" 
+                              filterMatchMode="contains">
+                        <h:outputText value="#{car.matiereTitre} (#{car.matiereCode})" />
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:outputPanel  style="text-align:center;">
+                    <p:dataTable id="carDetail" var="car" value="#{infoController.listMatiereNotes}" widgetVar="carsTable"
+                                 emptyMessage="No Etudiant found with given criteria" rowKey="#{car.suivreId}">
+
+
+                        <p:column  headerText="Module" >
+                            <h:outputText value="#{car.etudiantNote.utilisateurNom} #{car.etudiantNote.utilisateurPrenom}" />
+                        </p:column>
+                        <p:column  headerText="Note obtenue" >
+                            <h:outputText value="#{car.noteObtenue}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:outputPanel>
+
+
+            </p:panelGrid>
+        </h:form>
+            </p:fieldset>
+    </ui:define>
+</ui:composition>

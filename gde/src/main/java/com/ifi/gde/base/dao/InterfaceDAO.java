@@ -5,6 +5,10 @@
  */
 package com.ifi.gde.base.dao;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
@@ -25,7 +29,8 @@ public interface InterfaceDAO<T> {
     T getEntityByDetachedCriteria(DetachedCriteria criteria);
     T getEntityByHQLQuery(String stringQuery);
     List<T> getEntities();
-    List<T> getListByDetachedCriteria(DetachedCriteria criteria);    
+    List<T> getListByDetachedCriteria(DetachedCriteria criteria);   
+    public void saveFile(InputStream inputStream, File file) throws FileNotFoundException, IOException;
     
 }
 
